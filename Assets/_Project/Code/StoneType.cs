@@ -7,6 +7,7 @@ public class StoneType : MonoBehaviour {
     public enum idType
     {
         left,
-        right
+        right,
+        Black,
     }; //it's must be attack and defense or attack and magic
 }

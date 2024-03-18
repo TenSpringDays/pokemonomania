@@ -1,45 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
+using UnityEngine.UIElements.Experimental;
 
-public class BlinkingEffect : MonoBehaviour {
 
-    [SerializeField]
-    GameObject blinkedText;
-    [SerializeField]
-    float blinkedTextVisibleTime;
-    [SerializeField]
-    float blinkedTextUnvisibleTime;
-    float time;
-
-    void Start()
+namespace StoneBreaker
+{
+    public class BlinkingEffect : MonoBehaviour
     {
-        time = blinkedTextVisibleTime;
-    }
+        [SerializeField] private MaskableGraphic _target;
+        [SerializeField] private float _pingpongLen = 1f;
 
-    void Update()
-    {
-        textBlinking();
-    }
-
-    void textBlinking()
-    {
-        if (time > 0)
+        private void Update()
         {
-            time -= Time.deltaTime;
+            TextBlinking();
         }
-        else
+
+        private void TextBlinking()
         {
-            if (blinkedText.activeInHierarchy)
-            {
-                time = blinkedTextUnvisibleTime;
-                blinkedText.SetActive(false);
-            }
-            else
-            {
-                time = blinkedTextVisibleTime;
-                blinkedText.SetActive(true);
-            }
+            float a = Mathf.PingPong(Time.unscaledTime, _pingpongLen);
+            a = Easing.OutSine(a);
+            SetAlpha(_target, a);
+        }
+
+        private static void SetAlpha(Graphic target, float alpha)
+        {
+            var col = target.color;
+            col.a = alpha;
+            target.color = col;
         }
     }
 }

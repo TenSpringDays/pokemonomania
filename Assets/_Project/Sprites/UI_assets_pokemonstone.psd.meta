@@ -1,0 +1,712 @@
+fileFormatVersion: 2
+guid: f9ec5f6a1c4120841ad81f014477beab
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_0
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 2035
+        width: 329
+        height: 233
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ae93a77df606cb4291e5bda8807efaf
+      internalID: 194770215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_1
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 2028
+        width: 358
+        height: 258
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de1c0601b4ec9644ea9bd8907658951f
+      internalID: -786975869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_2
+      rect:
+        serializedVersion: 2
+        x: 958
+        y: 2035
+        width: 755
+        height: 223
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 128, y: 105, z: 128, w: 105}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f49815a9bf427e843a6170be8c719f9f
+      internalID: 1657054007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_3
+      rect:
+        serializedVersion: 2
+        x: 1777
+        y: 1912
+        width: 827
+        height: 429
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 263.36322, y: 214.5}
+        - {x: -357.0821, y: 158.31223}
+        - {x: -413.29694, y: 97.91205}
+        - {x: -413.5, y: -170.5}
+        - {x: -382.06647, y: -214.5}
+        - {x: 315.414, y: -214.5}
+        - {x: 336.2343, y: -183.26115}
+        - {x: 413.5, y: 102.07758}
+        - {x: 413.5, y: 214.5}
+      - - {x: 409.1054, y: -133.27481}
+        - {x: 382.039, y: -187.42668}
+        - {x: 373.71088, y: -214.5}
+        - {x: 413.5, y: -214.5}
+        - {x: 413.5, y: -133.27481}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8bdc43e4713ea640a1b1f1aeccfb596
+      internalID: 646788220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_4
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1888
+        width: 808
+        height: 412
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -320, y: 206}
+        - {x: -372, y: 120}
+        - {x: -404, y: -118}
+        - {x: -403.77148, y: -206}
+        - {x: -314, y: -206}
+        - {x: -238, y: -178}
+        - {x: 350, y: -174}
+        - {x: 404, y: -108.32982}
+        - {x: 404, y: 206}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f1deb0f24aea9d4987e8b91a7b6f35d
+      internalID: 2072994038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_5
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 1778
+        width: 294
+        height: 166
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0eb8395d71a81646bbbdc5b2e9e369c
+      internalID: 1654340707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_6
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 1778
+        width: 296
+        height: 166
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c5554e22d2f6f5459308e37f60a1371
+      internalID: 325062282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_30
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 1413
+        width: 277
+        height: 279
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a325ac6a6db50e4ca2ad12fda9dd118
+      internalID: -615950021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_31
+      rect:
+        serializedVersion: 2
+        x: 1009
+        y: 1569
+        width: 277
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 40, y: 0, z: 138, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 518ead592a0376947bbee50892e621ab
+      internalID: 1250482697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_32
+      rect:
+        serializedVersion: 2
+        x: 1329
+        y: 1613
+        width: 119
+        height: 119
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c0f3b23b0495a840bb4f0860502fec1
+      internalID: 688827191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_52
+      rect:
+        serializedVersion: 2
+        x: 994
+        y: 1415
+        width: 327
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b355bf472f1cead4da70e1d22f30b4f7
+      internalID: 672995782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_53
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 1211
+        width: 293
+        height: 165
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7291f75a05f42c488d1c2ad9f94aa04
+      internalID: -434242148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_55
+      rect:
+        serializedVersion: 2
+        x: 1329
+        y: 1236
+        width: 302
+        height: 142
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28615ffa62334a64c88beb0d70aac824
+      internalID: 1354365191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_65
+      rect:
+        serializedVersion: 2
+        x: 3055
+        y: 1140
+        width: 546
+        height: 200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 64, y: 0, z: 64, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50a130cc612710746a4ba70bbf5545ea
+      internalID: 511946770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_68
+      rect:
+        serializedVersion: 2
+        x: 1421
+        y: 1165
+        width: 181
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec9b280c43050074d8396f8dbba4bb6f
+      internalID: 458922192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_75
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 414
+        width: 701
+        height: 658
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05bbe06e9b2ed00458006b6a4fc2fd42
+      internalID: -46857564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_78
+      rect:
+        serializedVersion: 2
+        x: 2321
+        y: 176
+        width: 670
+        height: 935
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 128, y: 0, z: 128, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d002e12086f7e945806369a29642bc2
+      internalID: -1757659280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_81
+      rect:
+        serializedVersion: 2
+        x: 3393
+        y: 847
+        width: 116
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a703a521110b3544a7be588943b4ee8
+      internalID: 342326178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_82
+      rect:
+        serializedVersion: 2
+        x: 3563
+        y: 880
+        width: 21
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca4b1cf176532624ca6d56fa5d9900ae
+      internalID: 65567426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_assets_pokemonstone_97
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 559
+        width: 606
+        height: 463
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88c62647331689f4f95d7013dafdba9d
+      internalID: 1165285549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      UI_assets_pokemonstone_0: 194770215
+      UI_assets_pokemonstone_1: -786975869
+      UI_assets_pokemonstone_10: 1261883988
+      UI_assets_pokemonstone_100: 872587674
+      UI_assets_pokemonstone_101: -135315446
+      UI_assets_pokemonstone_102: 1780324746
+      UI_assets_pokemonstone_103: -1208586630
+      UI_assets_pokemonstone_104: 640362011
+      UI_assets_pokemonstone_105: 1135782750
+      UI_assets_pokemonstone_106: 1408563158
+      UI_assets_pokemonstone_107: 1882434950
+      UI_assets_pokemonstone_108: 409759416
+      UI_assets_pokemonstone_109: 1049270410
+      UI_assets_pokemonstone_11: -2108572638
+      UI_assets_pokemonstone_110: 648040263
+      UI_assets_pokemonstone_111: -398304747
+      UI_assets_pokemonstone_112: -87755168
+      UI_assets_pokemonstone_113: -2125171095
+      UI_assets_pokemonstone_114: -246213794
+      UI_assets_pokemonstone_115: -1341037236
+      UI_assets_pokemonstone_116: 562704947
+      UI_assets_pokemonstone_117: 1205648668
+      UI_assets_pokemonstone_118: 1080792181
+      UI_assets_pokemonstone_119: 969526090
+      UI_assets_pokemonstone_12: -1251110380
+      UI_assets_pokemonstone_120: -1802225276
+      UI_assets_pokemonstone_121: -762104118
+      UI_assets_pokemonstone_122: 1393993155
+      UI_assets_pokemonstone_123: -373047241
+      UI_assets_pokemonstone_124: 1032392225
+      UI_assets_pokemonstone_125: -1779462175
+      UI_assets_pokemonstone_126: -1896440019
+      UI_assets_pokemonstone_127: 1774898910
+      UI_assets_pokemonstone_128: -1755484365
+      UI_assets_pokemonstone_13: -1500987028
+      UI_assets_pokemonstone_14: 1453320497
+      UI_assets_pokemonstone_15: -1929430557
+      UI_assets_pokemonstone_16: 767767676
+      UI_assets_pokemonstone_17: -1447205306
+      UI_assets_pokemonstone_18: 1798439623
+      UI_assets_pokemonstone_19: -1284922063
+      UI_assets_pokemonstone_2: 1657054007
+      UI_assets_pokemonstone_20: -1256500858
+      UI_assets_pokemonstone_21: 308717777
+      UI_assets_pokemonstone_22: -1643018666
+      UI_assets_pokemonstone_23: 1825100630
+      UI_assets_pokemonstone_24: 1087306249
+      UI_assets_pokemonstone_25: 816699848
+      UI_assets_pokemonstone_26: -142664573
+      UI_assets_pokemonstone_27: 1938845032
+      UI_assets_pokemonstone_28: -1998246476
+      UI_assets_pokemonstone_29: -257368565
+      UI_assets_pokemonstone_3: 646788220
+      UI_assets_pokemonstone_30: -615950021
+      UI_assets_pokemonstone_31: 1250482697
+      UI_assets_pokemonstone_32: 688827191
+      UI_assets_pokemonstone_33: -907723490
+      UI_assets_pokemonstone_34: -272670402
+      UI_assets_pokemonstone_35: 1093495851
+      UI_assets_pokemonstone_36: 25970313
+      UI_assets_pokemonstone_37: 694847800
+      UI_assets_pokemonstone_38: -677984142
+      UI_assets_pokemonstone_39: -1114382277
+      UI_assets_pokemonstone_4: 2072994038
+      UI_assets_pokemonstone_40: 1981051297
+      UI_assets_pokemonstone_41: -1897441813
+      UI_assets_pokemonstone_42: -94913002
+      UI_assets_pokemonstone_43: 996439734
+      UI_assets_pokemonstone_44: 1314024778
+      UI_assets_pokemonstone_45: 275453771
+      UI_assets_pokemonstone_46: -896731029
+      UI_assets_pokemonstone_47: 1092608974
+      UI_assets_pokemonstone_48: -423037694
+      UI_assets_pokemonstone_49: 195359470
+      UI_assets_pokemonstone_5: 1654340707
+      UI_assets_pokemonstone_50: 188196311
+      UI_assets_pokemonstone_51: -637940187
+      UI_assets_pokemonstone_52: 672995782
+      UI_assets_pokemonstone_53: -434242148
+      UI_assets_pokemonstone_54: -2122261695
+      UI_assets_pokemonstone_55: 1354365191
+      UI_assets_pokemonstone_56: -1449596051
+      UI_assets_pokemonstone_57: -1069909284
+      UI_assets_pokemonstone_58: 1675287977
+      UI_assets_pokemonstone_59: 1553607475
+      UI_assets_pokemonstone_6: 325062282
+      UI_assets_pokemonstone_60: 1786422077
+      UI_assets_pokemonstone_61: 2020292897
+      UI_assets_pokemonstone_62: -1479950491
+      UI_assets_pokemonstone_63: -1081247409
+      UI_assets_pokemonstone_64: -1376239490
+      UI_assets_pokemonstone_65: 511946770
+      UI_assets_pokemonstone_66: -1553137330
+      UI_assets_pokemonstone_67: 522464607
+      UI_assets_pokemonstone_68: 458922192
+      UI_assets_pokemonstone_69: -242498989
+      UI_assets_pokemonstone_7: 2113585707
+      UI_assets_pokemonstone_70: -618725355
+      UI_assets_pokemonstone_71: 429246860
+      UI_assets_pokemonstone_72: -1837031663
+      UI_assets_pokemonstone_73: 715352367
+      UI_assets_pokemonstone_74: 1366919262
+      UI_assets_pokemonstone_75: -46857564
+      UI_assets_pokemonstone_76: -218339237
+      UI_assets_pokemonstone_77: -1265334224
+      UI_assets_pokemonstone_78: -1757659280
+      UI_assets_pokemonstone_79: 1483451177
+      UI_assets_pokemonstone_8: -70187004
+      UI_assets_pokemonstone_80: -790901944
+      UI_assets_pokemonstone_81: 342326178
+      UI_assets_pokemonstone_82: 65567426
+      UI_assets_pokemonstone_83: 721966667
+      UI_assets_pokemonstone_84: 781246253
+      UI_assets_pokemonstone_85: 1047891340
+      UI_assets_pokemonstone_86: -985439779
+      UI_assets_pokemonstone_87: -1104983831
+      UI_assets_pokemonstone_88: 663236437
+      UI_assets_pokemonstone_89: 997402845
+      UI_assets_pokemonstone_9: -971550351
+      UI_assets_pokemonstone_90: -1925921386
+      UI_assets_pokemonstone_91: -950536167
+      UI_assets_pokemonstone_92: -1547966288
+      UI_assets_pokemonstone_93: -1086698766
+      UI_assets_pokemonstone_94: 1458976485
+      UI_assets_pokemonstone_95: -553183215
+      UI_assets_pokemonstone_96: -334880978
+      UI_assets_pokemonstone_97: 1165285549
+      UI_assets_pokemonstone_98: -1541335804
+      UI_assets_pokemonstone_99: 2055254603
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
