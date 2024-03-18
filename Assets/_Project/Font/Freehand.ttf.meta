@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 1b172f767defca044a8edb6b9a6925c1
+timeCreated: 1512843886
+licenseType: Store
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Freehand
+  fontNames:
+  - Freehand
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
