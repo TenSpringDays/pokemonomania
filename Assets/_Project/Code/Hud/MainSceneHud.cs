@@ -1,6 +1,6 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace StoneBreaker.Hud
@@ -11,6 +11,7 @@ namespace StoneBreaker.Hud
         [SerializeField] private TMP_Text _comboText;
         [SerializeField] private TMP_Text _multiplierText;
         [SerializeField] private TMP_Text _timeText;
+        [SerializeField] private Image _timeProgres;
 
         private void OnEnable()
         {
@@ -27,6 +28,18 @@ namespace StoneBreaker.Hud
         {
             if (ScoreManager.Instance)
                 ScoreManager.Instance.ScoreChanged -= OnScoreChanged;
+        }
+
+        private void LateUpdate()
+        {
+            UpdateTimer();
+        }
+
+        private void UpdateTimer()
+        {
+            var tm = TimerManager.Instance;
+            _timeText.SetText("{0.00}", tm.Time);
+            _timeProgres.fillAmount = tm.Time / tm.MaxTime;
         }
 
         private void OnScoreMultiplyChanged(ScoreMultiplyStage arg0)

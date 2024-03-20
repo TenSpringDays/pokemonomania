@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 
 namespace StoneBreaker
@@ -14,7 +13,7 @@ namespace StoneBreaker
             public UnityEvent OnKeyDown;
         }
         
-        [FormerlySerializedAs("onAnyKeyDown")] [SerializeField] private UnityEvent _onAnyKeyDown;
+        [SerializeField] private UnityEvent _onAnyKeyDown;
         [SerializeField] private EventPair[] _eventPairs;
 
         public UnityEvent OnAnyKeyDown => _onAnyKeyDown;

@@ -9,39 +9,25 @@ namespace StoneBreaker
     {
         [SerializeField] private int maxTime;
         [SerializeField] private int decreasingSpeed = 1;
-        [SerializeField] private float time;
 
-        [SerializeField] private GameObject timerFillObject;
+        private float _time;
 
-        [SerializeField] private GameObject timerText;
-        [SerializeField] private string additionalText;
+        public float Time => _time;
+        public float MaxTime => maxTime;
 
-        private void Start()
+        private void OnEnable()
         {
-            time = maxTime;
-            UpdateTimerText();
+            _time = maxTime;
         }
 
         private void Update()
         {
-            time -= (decreasingSpeed * Time.deltaTime);
-            UpdateTimerText();
-            UpdateTimerFillObject();
-
-            if (time <= 0f)
+            _time -= decreasingSpeed * UnityEngine.Time.deltaTime;
+            if (_time <= 0f)
             {
+                _time = 0f;
                 WinLoseManager.Instance.ChangeState(WinLoseManager.WinloseState.IsGameOver);
             }
-        }
-
-        private void UpdateTimerText()
-        {
-            timerText.GetComponent<Text>().text = additionalText + time.ToString("0.00");
-        }
-
-        private void UpdateTimerFillObject()
-        {
-            timerFillObject.GetComponent<Image>().fillAmount = time / maxTime;
         }
     }
 }

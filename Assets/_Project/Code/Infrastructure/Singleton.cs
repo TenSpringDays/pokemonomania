@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 
@@ -10,15 +11,19 @@ namespace StoneBreaker.Infrastructure
         private static T _instance;
         private static Action<T> _onInstantiates;
 
-        public static T Instance
-        {
-            get
-            {
-                if (!_instance)
-                    _instance = FindObjectOfType<T>(true);
+        public static T Instance => _instance;
 
-                return _instance;
-            }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetInstance(out T instance)
+        {
+            instance = _instance;
+            return instance;
+        }
+
+        public static void LazyInstance(Action<T> onInstanciate)
+        {
+            _onInstantiates += onInstanciate;
         }
 
         private void Awake()
@@ -31,9 +36,5 @@ namespace StoneBreaker.Infrastructure
             _onInstantiates = null;
         }
 
-        public static void LazyInstance(Action<T> onInstanciate)
-        {
-            _onInstantiates += onInstanciate;
-        }
     }
 }

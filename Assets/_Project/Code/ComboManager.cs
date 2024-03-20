@@ -1,7 +1,6 @@
 ﻿using StoneBreaker.Infrastructure;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 
 namespace StoneBreaker
@@ -34,11 +33,13 @@ namespace StoneBreaker
             if (_comboRangeTime > 0)
             {
                 _comboRangeTime -= Time.deltaTime;
-            }
-            else
-            {
-                UpdateMaximumComboInOnePlay(_totalCombo);
-                ResetCombo();
+
+                if (_comboRangeTime <= 0f)
+                {
+                    DropCombo();
+                    ResetCombo();
+                    UpdateMaximumComboInOnePlay(_totalCombo);
+                }
             }
         }
 
@@ -74,7 +75,6 @@ namespace StoneBreaker
             
             ComboChanged?.Invoke(_totalCombo);
             ScoreMultiplyChanged?.Invoke(_multiplyStages[_currentStgae]);
-            Debug.Log("Drop combo");
         }
 
         private void ResetCombo()
