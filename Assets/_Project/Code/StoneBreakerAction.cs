@@ -1,23 +1,26 @@
-﻿using UnityEngine;
-using UnityEngine.Serialization;
+﻿using StoneBreaker;
+using UnityEngine;
 
 
-public class StoneBreakerAction : MonoBehaviour
+namespace StoneBreaker
 {
-    [FormerlySerializedAs("stoneBreakerType")] [SerializeField] private StoneType.idType _stoneBreakerType;
-
-    public void BreakingTheStone()
+    public class StoneBreakerAction : MonoBehaviour
     {
-        if (_stoneBreakerType == StoneManager.instance.activeStone[0].getStoneType())
+        [SerializeField] private StoneType.idType _stoneBreakerType;
+
+        public void BreakingTheStone()
         {
-            StoneManager.instance.BreakingStone();
-            ScoreManager.instance.addScore();
-            ComboManager.instance.addCombo(_stoneBreakerType);
-        }
-        else
-        {
-            ComboManager.instance.dropCombo();
-            FailedMovementManager.instance.setFMBVisible(true);
+            if (_stoneBreakerType == StoneManager.instance.activeStone[0].getStoneType())
+            {
+                StoneManager.instance.BreakingStone();
+                ScoreService.Instance.AddScore();
+                ComboManager.instance.addCombo(_stoneBreakerType);
+            }
+            else
+            {
+                ComboManager.instance.dropCombo();
+                FailedMovementManager.instance.setFMBVisible(true);
+            }
         }
     }
 }

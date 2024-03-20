@@ -316,78 +316,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &505224502
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 505224503}
-  - component: {fileID: 505224504}
-  m_Layer: 0
-  m_Name: ScoreManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &505224503
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 505224502}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.29182094, y: 3.2829847, z: -1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &505224504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 505224502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1925217de29233042931af9b9effab65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score: 0
-  scorePerBreaking: 10
-  scoreText: {fileID: 2078451760}
-  additionalText: 
-  destroyedLeftStoneTotal: 0
-  destroyedRightStoneTotal: 0
-  destroyedBothStoneTotal: 0
-  scoreMultiply:
-  - totalCombo: 0
-    multipliedScore: 1
-    comboTextColor: {r: 1, g: 1, b: 1, a: 0}
-  - totalCombo: 10
-    multipliedScore: 2
-    comboTextColor: {r: 0.2827586, g: 1, b: 0, a: 0}
-  - totalCombo: 25
-    multipliedScore: 3
-    comboTextColor: {r: 0.9918864, g: 0.85294116, b: 1, a: 0}
-  - totalCombo: 50
-    multipliedScore: 4
-    comboTextColor: {r: 0.9338235, g: 0.68663496, b: 0.76334864, a: 0}
-  - totalCombo: 100
-    multipliedScore: 5
-    comboTextColor: {r: 0.64705884, g: 0.8831644, b: 1, a: 0}
-  - totalCombo: 200
-    multipliedScore: 10
-    comboTextColor: {r: 0.32413793, g: 1, b: 0, a: 0}
-  scoreMultiplyText: {fileID: 1697354396}
-  additionalScoreMultiplyText: SCORE X
 --- !u!1 &617135648
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,7 +608,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c45e6900b6cb2ce48a009b2a3708a244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stoneBreakerType: 0
+  _scoreService: {fileID: 0}
+  _stoneBreakerType: 0
 --- !u!1 &740214876
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,6 +1455,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0187f0224a17644eb31e662983077be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scoreService: {fileID: 0}
+  _metaData: {fileID: 0}
   sceneTargetAfterWinLose: StoneBreaker
 --- !u!1 &1441901743
 GameObject:
@@ -1747,7 +1678,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c45e6900b6cb2ce48a009b2a3708a244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stoneBreakerType: 1
+  _scoreService: {fileID: 0}
+  _stoneBreakerType: 0
 --- !u!1 &1697354396
 GameObject:
   m_ObjectHideFlags: 0
@@ -1872,6 +1804,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   failedMovementBackground: {fileID: 986090211}
+  _inputObserver: {fileID: 0}
 --- !u!1 &1809025726
 GameObject:
   m_ObjectHideFlags: 0
@@ -2346,7 +2279,6 @@ SceneRoots:
   - {fileID: 954134368}
   - {fileID: 406891212}
   - {fileID: 1872171239}
-  - {fileID: 505224503}
   - {fileID: 2085482555}
   - {fileID: 943573429}
   - {fileID: 1775944611}

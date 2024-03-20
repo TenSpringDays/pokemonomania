@@ -25,16 +25,6 @@ public class ComboManager : MonoBehaviour
     [SerializeField]
     string additionalTotalComboText;
 
-    [SerializeField]
-    GameObject leftComboText;
-    [SerializeField]
-    string additionalLeftComboText;
-
-    [SerializeField]
-    GameObject rightComboText;
-    [SerializeField]
-    string additionalRightComboText;
-
     public static int staticTotalCombo;
 
     void Awake()
@@ -98,8 +88,6 @@ public class ComboManager : MonoBehaviour
     void updateComboText()
     {
         totalComboText.GetComponent<Text>().text = additionalTotalComboText + totalCombo;
-        leftComboText.GetComponent<Text>().text = additionalLeftComboText + leftStoneCombo;
-        rightComboText.GetComponent<Text>().text = additionalRightComboText + rightStoneCombo;
     }
 
     void updateMaximumComboInOnePlay(int newTotalCombo)

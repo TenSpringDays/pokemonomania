@@ -1,54 +1,47 @@
-﻿using StoneBreaker;
+﻿using StoneBreaker.Infrastructure;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimerManager : MonoBehaviour {
 
-    public static TimerManager instance;
-
-    [SerializeField]
-    int maxTime;
-    [SerializeField]
-    int decreasingSpeed = 1;
-    [SerializeField]
-    float time;
-
-    [SerializeField]
-    GameObject timerFillObject;
-
-    [SerializeField]
-    GameObject timerText;
-    [SerializeField]
-    string additionalText;
-
-    void Awake()
+namespace StoneBreaker
+{
+    public class TimerManager : Singleton<TimerManager>
     {
-        instance = this;
-    }
+        [SerializeField] private int maxTime;
+        [SerializeField] private int decreasingSpeed = 1;
+        [SerializeField] private float time;
 
-	void Start () {
-        time = maxTime;
-        updateTimerText();
-	}
-	
-	void Update () {
-        time -= (decreasingSpeed * Time.deltaTime);
-        updateTimerText();
-        updateTimerFillObject();
+        [SerializeField] private GameObject timerFillObject;
 
-        if (time <= 0f)
+        [SerializeField] private GameObject timerText;
+        [SerializeField] private string additionalText;
+
+        private void Start()
         {
-            WinLoseManager.instance.changeState(WinLoseManager.WinloseState.isGameOver);
+            time = maxTime;
+            UpdateTimerText();
         }
-    }
 
-    void updateTimerText()
-    {
-        timerText.GetComponent<Text>().text = additionalText + time.ToString("0.00");
-    }
+        private void Update()
+        {
+            time -= (decreasingSpeed * Time.deltaTime);
+            UpdateTimerText();
+            UpdateTimerFillObject();
 
-    void updateTimerFillObject()
-    {
-        timerFillObject.GetComponent<Image>().fillAmount = time / maxTime;
+            if (time <= 0f)
+            {
+                WinLoseManager.Instance.ChangeState(WinLoseManager.WinloseState.IsGameOver);
+            }
+        }
+
+        private void UpdateTimerText()
+        {
+            timerText.GetComponent<Text>().text = additionalText + time.ToString("0.00");
+        }
+
+        private void UpdateTimerFillObject()
+        {
+            timerFillObject.GetComponent<Image>().fillAmount = time / maxTime;
+        }
     }
 }

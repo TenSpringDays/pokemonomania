@@ -1,53 +1,49 @@
-﻿using UnityEngine;
+﻿using StoneBreaker.Infrastructure;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
 namespace StoneBreaker
 {
-
-    public class WinLoseManager : MonoBehaviour
+    public class WinLoseManager : Singleton<WinLoseManager>
     {
-        [SerializeField] private GameMetaData _metaData;
-        public static WinLoseManager instance;
-
-
         public enum WinloseState
         {
-            gameStillRunning,
-            isGameOver
+            GameStillRunning,
+            IsGameOver
         }
 
 
-        public string sceneTargetAfterWinLose;
-        WinloseState winloseState;
+        [SerializeField] private ScoreService _scoreService;
+        [SerializeField] private GameMetaData _metaData;
+        [SerializeField] private string sceneTargetAfterWinLose;
+        
+        private WinloseState winloseState;
+        
 
-        void Awake()
+        private void Start()
         {
-            instance = this;
+            ChangeState(WinloseState.GameStillRunning);
         }
 
-        void Start()
-        {
-            changeState(WinloseState.gameStillRunning);
-        }
-
-        void Update()
+        private void Update()
         {
             checkState(winloseState);
         }
 
-        public void changeState(WinloseState state)
+        public void ChangeState(WinloseState state)
         {
             winloseState = state;
         }
 
-        void checkState(WinloseState state)
+        private void checkState(WinloseState state)
         {
-            if (state == WinloseState.isGameOver)
+            if (state == WinloseState.IsGameOver)
             {
-                if (ScoreManager.staticScore > _metaData.MaxScore)
-                    _metaData.MaxScore = ScoreManager.staticScore;
 
+                if (ScoreService.Instance.Score > _metaData.MaxScore)
+                    _metaData.MaxScore = ScoreService.Instance.Score;
+                
                 SceneManager.LoadScene(sceneTargetAfterWinLose);
             }
         }
