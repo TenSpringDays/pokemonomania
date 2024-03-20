@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace StoneBreaker
 {
     public class StoneBreakerAction : MonoBehaviour
     {
-        [SerializeField] private StoneType.idType _stoneBreakerType;
+        [FormerlySerializedAs("_stoneBreakerType")] [SerializeField] private PokemonType pokemonBreakerType;
 
         public void BreakingTheStone()
         {
-            if (_stoneBreakerType == StoneManager.Instance.ActiveStone.getStoneType())
+            if (pokemonBreakerType == StoneManager.Instance.ActivePokemon.PokemonType)
             {
                 StoneManager.Instance.BreakingStone();
                 ScoreManager.Instance.AddScore();

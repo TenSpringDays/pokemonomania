@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using StoneBreaker.Infrastructure;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 namespace StoneBreaker
@@ -15,12 +17,12 @@ namespace StoneBreaker
         public GameObject[] StoneInThisLevel;
 
         private bool _isStillCreatingStone;
-        private Queue<Stone> _stones;
-        private Stone _lastAdded;
+        private Queue<Pokemon> _stones;
+        private Pokemon _lastAdded;
         private int _currentSpawnId;
         private int _remainsToCreate;
 
-        public Stone ActiveStone => _stones.Peek();
+        public Pokemon ActivePokemon => _stones.Peek();
 
         private void OnValidate()
         {
@@ -34,7 +36,7 @@ namespace StoneBreaker
         {
             countAlreadyCreatedStone = 0;
             _isStillCreatingStone = false;
-            _stones = new Queue<Stone>(maximumFilling);
+            _stones = new Queue<Pokemon>(maximumFilling);
 
             StoneInThisLevel = InGameLevelManager.instance.gameLevel[idGameLevel].StoneInThisLevel;
         }
@@ -64,15 +66,18 @@ namespace StoneBreaker
             
             _remainsToCreate--;
             
-            float yPosition = 6f;
+            float yPosition = 2f;
+
             if (!ReferenceEquals(_lastAdded, null))
-                yPosition = _lastAdded.transform.position.y + 2f;
-                
+            {
+                yPosition = _lastAdded.transform.position.y + 1f;
+                yPosition = Mathf.Min(yPosition, maximumFilling * 1.0f);
+            }
+
             var newPos = new Vector3(0, yPosition, -1f);
             var prefab = StoneInThisLevel[_currentSpawnId];
             var stoneGO = Instantiate(prefab, newPos, Quaternion.identity);
-            var stone = stoneGO.GetComponent<Stone>();
-            stone.StoneID = _stones.Count;
+            var stone = stoneGO.GetComponent<Pokemon>();
             _stones.Enqueue(stone);
             _lastAdded = stone;
         }
@@ -82,10 +87,21 @@ namespace StoneBreaker
             if (_stones.Count == 0)
                 return;
 
-            Destroy(_stones.Dequeue().gameObject);
-
-            if (_stones.Count == 0)
+            var toDel = _stones.Dequeue();
+            if (ReferenceEquals(toDel, _lastAdded))
                 _lastAdded = null;
+            
+            Destroy(toDel.gameObject);
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (ReferenceEquals(_lastAdded, null))
+                return;
+            
+            var transform1 = _lastAdded.transform;
+            Gizmos.matrix = transform1.localToWorldMatrix;
+            Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
         }
     }
 }
