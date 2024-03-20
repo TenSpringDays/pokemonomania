@@ -9,9 +9,9 @@ namespace StoneBreaker
 
         public void BreakingTheStone()
         {
-            if (_stoneBreakerType == StoneManager.instance.activeStone[0].getStoneType())
+            if (_stoneBreakerType == StoneManager.Instance.ActiveStone.getStoneType())
             {
-                StoneManager.instance.BreakingStone();
+                StoneManager.Instance.BreakingStone();
                 ScoreManager.Instance.AddScore();
                 ComboManager.Instance.AddCombo();
             }

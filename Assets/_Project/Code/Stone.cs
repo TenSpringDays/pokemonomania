@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using StoneBreaker;
 using UnityEngine;
 
 public class Stone : MonoBehaviour {
@@ -47,7 +48,6 @@ public class Stone : MonoBehaviour {
     {
         if (col.collider.tag == "Land")
         {
-            StoneManager.instance.makeThisStoneBeingFirst(gameObject);
             isInTheAir = false;
         }
         if (col.collider.tag == "Stone")

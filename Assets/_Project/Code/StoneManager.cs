@@ -1,93 +1,91 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using StoneBreaker.Infrastructure;
+using UnityEngine;
 
-public class StoneManager : MonoBehaviour
+
+namespace StoneBreaker
 {
-    public static StoneManager instance;
-    public Stone[] activeStone;
-    //public Stone activeStone;
-
-    int stoneFilling;
-    [SerializeField]
-    int maximumFilling;
-    [SerializeField]
-    int idGameLevel;
-    [SerializeField]
-    int countAlreadyCreatedStone;
-
-    public GameObject[] StoneInThisLevel;
-    bool isStillCreatingStone;
-
-    void Awake()
+    public class StoneManager : Singleton<StoneManager>
     {
-        instance = this;
-    }
+        [SerializeField] private Vector2Int _spawnSequenceRange = new Vector2Int(5, 20);
+        [SerializeField] private int maximumFilling;
+        [SerializeField] private int idGameLevel;
+        [SerializeField] private int countAlreadyCreatedStone;
 
-    void Start()
-    {
-        stoneFilling = 0;
-        countAlreadyCreatedStone = 0;
-        activeStone = new Stone[maximumFilling];
-        isStillCreatingStone = false;
+        public GameObject[] StoneInThisLevel;
 
-        StoneInThisLevel = InGameLevelManager.instance.gameLevel[idGameLevel].StoneInThisLevel;
-    }
+        private bool _isStillCreatingStone;
+        private Queue<Stone> _stones;
+        private Stone _lastAdded;
+        private int _currentSpawnId;
+        private int _remainsToCreate;
 
-    void Update()
-    {
-        if (!isStillCreatingStone && stoneFilling < maximumFilling)
-            FullSpawningStone();
-    }
+        public Stone ActiveStone => _stones.Peek();
 
-    void FullSpawningStone()
-    {
-        isStillCreatingStone = true;
-        //CEK INI............................mother
-        /*int tempValue = stoneFilling;
-        stoneFilling = maximumFilling;
-
-        for (int i = tempValue; i < maximumFilling; i++)
+        private void OnValidate()
         {
-            SpawningStone(i);
-            yield return new WaitForSeconds(0.25f);
+            var r = _spawnSequenceRange;
+            int x = Mathf.Max(0, r.x);
+            int y = Mathf.Max(r.x, r.y);
+            _spawnSequenceRange = new Vector2Int(x, y);
         }
-        yield return new WaitForSeconds(0.25f);
-        isStillCreatingStone = false;*/
 
-        SpawningStone(stoneFilling);
-        //Debug.Log("StoneFilling : " + stoneFilling);
-        stoneFilling += 1;
-        countAlreadyCreatedStone += 1;
-        isStillCreatingStone = false;
-    }
-
-    void SpawningStone(int idActiveStone)
-    {
-        int tempValue = Random.Range(1, 100);
-        int choosenId = tempValue / (100 / StoneInThisLevel.Length);
-
-        float yPosition = 6f;
-        if (stoneFilling > 0)
-            yPosition = activeStone[stoneFilling - 1].transform.position.y + 2f;
-
-        GameObject CreatedStone = Instantiate(StoneInThisLevel[choosenId], new Vector3(0f, yPosition, -1f), new Quaternion()) as GameObject;
-        CreatedStone.GetComponent<Stone>().StoneID = idActiveStone;
-        activeStone[idActiveStone] = CreatedStone.GetComponent<Stone>();
-    }
-
-    public void BreakingStone()
-    {
-        Destroy(activeStone[0].gameObject);
-        for (int i = 0; i < activeStone.Length - 1; i++)
+        private void OnEnable()
         {
-            activeStone[i + 1].StoneID = i;
-            activeStone[i] = activeStone[i + 1];
-        }
-        activeStone[activeStone.Length - 1] = null;
-        stoneFilling -= 1;
-    }
+            countAlreadyCreatedStone = 0;
+            _isStillCreatingStone = false;
+            _stones = new Queue<Stone>(maximumFilling);
 
-    public void makeThisStoneBeingFirst(GameObject stone)
-    {
-        activeStone[0] = stone.GetComponent<Stone>();
+            StoneInThisLevel = InGameLevelManager.instance.gameLevel[idGameLevel].StoneInThisLevel;
+        }
+
+        public void Update()
+        {
+            if (!_isStillCreatingStone && _stones.Count < maximumFilling)
+                FullSpawningStone();
+        }
+
+        private void FullSpawningStone()
+        {
+            _isStillCreatingStone = true;
+
+            SwapnPokemon();
+            countAlreadyCreatedStone += 1;
+            _isStillCreatingStone = false;
+        }
+
+        private void SwapnPokemon()
+        {
+            if (_remainsToCreate <= 0)
+            {
+                _remainsToCreate = Random.Range(_spawnSequenceRange.x, _spawnSequenceRange.y);
+                _currentSpawnId = (_currentSpawnId + 1) % StoneInThisLevel.Length;
+            }
+            
+            _remainsToCreate--;
+            
+            float yPosition = 6f;
+            if (!ReferenceEquals(_lastAdded, null))
+                yPosition = _lastAdded.transform.position.y + 2f;
+                
+            var newPos = new Vector3(0, yPosition, -1f);
+            var prefab = StoneInThisLevel[_currentSpawnId];
+            var stoneGO = Instantiate(prefab, newPos, Quaternion.identity);
+            var stone = stoneGO.GetComponent<Stone>();
+            stone.StoneID = _stones.Count;
+            _stones.Enqueue(stone);
+            _lastAdded = stone;
+        }
+
+        public void BreakingStone()
+        {
+            if (_stones.Count == 0)
+                return;
+
+            Destroy(_stones.Dequeue().gameObject);
+
+            if (_stones.Count == 0)
+                _lastAdded = null;
+        }
     }
 }
