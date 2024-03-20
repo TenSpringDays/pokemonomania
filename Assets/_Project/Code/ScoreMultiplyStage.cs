@@ -6,8 +6,8 @@ namespace StoneBreaker
     [System.Serializable]
     public class ScoreMultiplyStage
     {
-        public int TotalCombo;
-        public float Multiplying;
-        public Color ComboTextColor;
+        [field:SerializeField] public int TotalCombo { get; private set; }
+        [field:SerializeField] public float Multiplying { get; private set; }
+        [field:SerializeField] public Color ComboTextColor { get; private set; }
     }
 }

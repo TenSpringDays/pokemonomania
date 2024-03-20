@@ -1,5 +1,4 @@
-﻿using StoneBreaker;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 namespace StoneBreaker
@@ -13,12 +12,12 @@ namespace StoneBreaker
             if (_stoneBreakerType == StoneManager.instance.activeStone[0].getStoneType())
             {
                 StoneManager.instance.BreakingStone();
-                ScoreService.Instance.AddScore();
-                ComboManager.instance.addCombo(_stoneBreakerType);
+                ScoreManager.Instance.AddScore();
+                ComboManager.Instance.AddCombo();
             }
             else
             {
-                ComboManager.instance.dropCombo();
+                ComboManager.Instance.DropCombo();
                 FailedMovementManager.instance.setFMBVisible(true);
             }
         }

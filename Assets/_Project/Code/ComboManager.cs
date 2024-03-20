@@ -1,101 +1,94 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using StoneBreaker.Infrastructure;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class ComboManager : MonoBehaviour
+
+namespace StoneBreaker
 {
-    public static ComboManager instance;
-
-    [SerializeField]
-    int leftStoneCombo;
-    [SerializeField]
-    int rightStoneCombo;
-    [SerializeField]
-    int totalCombo;
-    [SerializeField]
-    int maximumComboInOnePlay;
-
-    [SerializeField]
-    float maxComboRangeTime;
-    float comboRangeTime;
-
-    [SerializeField]
-    GameObject totalComboText;
-    [SerializeField]
-    string additionalTotalComboText;
-
-    public static int staticTotalCombo;
-
-    void Awake()
+    public class ComboManager : Singleton<ComboManager>
     {
-        instance = this;
-    }
+        [SerializeField] private float maxComboRangeTime;
+        [SerializeField] private ScoreMultiplyStage[] _multiplyStages;
 
-    void Start()
-    {
-        resetCombo();
-        maximumComboInOnePlay = 0;
-        staticTotalCombo = maximumComboInOnePlay;
-        comboRangeTime = 0;
-    }
+        private int _currentStgae;
+        private int _totalCombo;
+        private int _maximumComboInOnePlay;
+        private float _comboRangeTime;
 
-    void Update()
-    {
-        if (comboRangeTime > 0)
+        public int TotalCombo => _totalCombo;
+        public ScoreMultiplyStage Stage => _multiplyStages[_currentStgae];
+
+        public event UnityAction<int> ComboChanged;
+        public event UnityAction<ScoreMultiplyStage> ScoreMultiplyChanged;
+
+        private void OnEnable()
         {
-            comboRangeTime -= Time.deltaTime;
+            ResetCombo();
+            _maximumComboInOnePlay = 0;
+            _comboRangeTime = 0;
         }
-        else
+
+        private void Update()
         {
-            updateMaximumComboInOnePlay(totalCombo);
-            resetCombo();
+            if (_comboRangeTime > 0)
+            {
+                _comboRangeTime -= Time.deltaTime;
+            }
+            else
+            {
+                UpdateMaximumComboInOnePlay(_totalCombo);
+                ResetCombo();
+            }
         }
-    }
 
-    public void addCombo(StoneType.idType stoneType)
-    {
-        totalCombo += 1;
-        if (stoneType == StoneType.idType.left)
-            leftStoneCombo += 1;
-        else if (stoneType == StoneType.idType.right)
-            rightStoneCombo += 1;
-
-        comboRangeTime = maxComboRangeTime;
-        updateComboText();
-    }
-
-    public void dropCombo()
-    {
-        comboRangeTime = 0;
-        updateMaximumComboInOnePlay(totalCombo);
-        resetCombo();
-    }
-
-    public int getCombo()
-    {
-        return totalCombo;
-    }
-
-    void resetCombo()
-    {
-        leftStoneCombo = 0;
-        rightStoneCombo = 0;
-        totalCombo = 0;
-        updateComboText();
-    }
-
-    void updateComboText()
-    {
-        totalComboText.GetComponent<Text>().text = additionalTotalComboText + totalCombo;
-    }
-
-    void updateMaximumComboInOnePlay(int newTotalCombo)
-    {
-        if (newTotalCombo > maximumComboInOnePlay)
+        public void AddCombo()
         {
-            maximumComboInOnePlay = newTotalCombo;
-            staticTotalCombo = maximumComboInOnePlay;
+            _totalCombo += 1;
+            _comboRangeTime = maxComboRangeTime;
+            ComboChanged?.Invoke(_totalCombo);
+
+            if (TryMoveNextStage())
+                ScoreMultiplyChanged?.Invoke(_multiplyStages[_currentStgae]);
+        }
+
+        private bool TryMoveNextStage()
+        {
+            if (_currentStgae < _multiplyStages.Length - 1)
+            {
+                if (_totalCombo >= _multiplyStages[_currentStgae + 1].TotalCombo)
+                {
+                    _currentStgae++;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public void DropCombo()
+        {
+            _comboRangeTime = 0;
+            UpdateMaximumComboInOnePlay(_totalCombo);
+            ResetCombo();
+            
+            ComboChanged?.Invoke(_totalCombo);
+            ScoreMultiplyChanged?.Invoke(_multiplyStages[_currentStgae]);
+            Debug.Log("Drop combo");
+        }
+
+        private void ResetCombo()
+        {
+            _totalCombo = 0;
+            _currentStgae = 0;
+        }
+
+        private void UpdateMaximumComboInOnePlay(int newTotalCombo)
+        {
+            if (newTotalCombo > _maximumComboInOnePlay)
+            {
+                _maximumComboInOnePlay = newTotalCombo;
+            }
         }
     }
 }

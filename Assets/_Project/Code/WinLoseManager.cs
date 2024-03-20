@@ -1,6 +1,7 @@
 ﻿using StoneBreaker.Infrastructure;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 
 namespace StoneBreaker
@@ -14,7 +15,7 @@ namespace StoneBreaker
         }
 
 
-        [SerializeField] private ScoreService _scoreService;
+        [FormerlySerializedAs("_scoreService")] [SerializeField] private ScoreManager scoreManager;
         [SerializeField] private GameMetaData _metaData;
         [SerializeField] private string sceneTargetAfterWinLose;
         
@@ -41,8 +42,8 @@ namespace StoneBreaker
             if (state == WinloseState.IsGameOver)
             {
 
-                if (ScoreService.Instance.Score > _metaData.MaxScore)
-                    _metaData.MaxScore = ScoreService.Instance.Score;
+                if (ScoreManager.Instance.Score > _metaData.MaxScore)
+                    _metaData.MaxScore = ScoreManager.Instance.Score;
                 
                 SceneManager.LoadScene(sceneTargetAfterWinLose);
             }

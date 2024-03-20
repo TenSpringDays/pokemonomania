@@ -14,18 +14,33 @@ namespace StoneBreaker.Hud
 
         private void OnEnable()
         {
-            ScoreService.Instance.ScoreChanged += ScoreChanged;
+            ScoreManager.Instance.ScoreChanged += OnScoreChanged;
+            ComboManager.Instance.ComboChanged += OnComboChanged;
+            ComboManager.Instance.ScoreMultiplyChanged += OnScoreMultiplyChanged;
 
-            ScoreChanged(ScoreService.Instance.Score);
+            OnScoreChanged(ScoreManager.Instance.Score);
+            OnComboChanged(ComboManager.Instance.TotalCombo);
+            OnScoreMultiplyChanged(ComboManager.Instance.Stage);
         }
 
         private void OnDisable()
         {
-            if (ScoreService.Instance)
-                ScoreService.Instance.ScoreChanged -= ScoreChanged;
+            if (ScoreManager.Instance)
+                ScoreManager.Instance.ScoreChanged -= OnScoreChanged;
         }
 
-        private void ScoreChanged(int score)
+        private void OnScoreMultiplyChanged(ScoreMultiplyStage arg0)
+        {
+            _multiplierText.SetText("{0.00}", arg0.Multiplying);
+            _comboText.color = arg0.ComboTextColor;
+        }
+
+        private void OnComboChanged(int arg0)
+        {
+            _comboText.SetText("{}", arg0);
+        }
+
+        private void OnScoreChanged(int score)
         {
             _scoreText.SetText("{}", score);
         }
