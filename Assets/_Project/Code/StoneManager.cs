@@ -14,7 +14,7 @@ namespace StoneBreaker
         [SerializeField] private int idGameLevel;
         [SerializeField] private int countAlreadyCreatedStone;
 
-        public GameObject[] StoneInThisLevel;
+        private IReadOnlyList<GameObject> _stonesInThisLevel;
 
         private bool _isStillCreatingStone;
         private Queue<Pokemon> _stones;
@@ -34,11 +34,13 @@ namespace StoneBreaker
 
         private void OnEnable()
         {
-            countAlreadyCreatedStone = 0;
-            _isStillCreatingStone = false;
-            _stones = new Queue<Pokemon>(maximumFilling);
-
-            StoneInThisLevel = InGameLevelManager.instance.gameLevel[idGameLevel].StoneInThisLevel;
+            InGameLevelManager.WaitInstance(instance =>
+            {
+                countAlreadyCreatedStone = 0;
+                _isStillCreatingStone = false;
+                _stones = new Queue<Pokemon>(maximumFilling);
+                _stonesInThisLevel = instance.GameLevels[idGameLevel].StonesInThislevel;
+            });
         }
 
         public void Update()
@@ -61,7 +63,7 @@ namespace StoneBreaker
             if (_remainsToCreate <= 0)
             {
                 _remainsToCreate = Random.Range(_spawnSequenceRange.x, _spawnSequenceRange.y);
-                _currentSpawnId = (_currentSpawnId + 1) % StoneInThisLevel.Length;
+                _currentSpawnId = (_currentSpawnId + 1) % _stonesInThisLevel.Count;
             }
             
             _remainsToCreate--;
@@ -75,7 +77,7 @@ namespace StoneBreaker
             }
 
             var newPos = new Vector3(0, yPosition, -1f);
-            var prefab = StoneInThisLevel[_currentSpawnId];
+            var prefab = _stonesInThisLevel[_currentSpawnId];
             var stoneGO = Instantiate(prefab, newPos, Quaternion.identity);
             var stone = stoneGO.GetComponent<Pokemon>();
             _stones.Enqueue(stone);

@@ -21,7 +21,7 @@ namespace StoneBreaker.Infrastructure
             return instance;
         }
 
-        public static void LazyInstance(Action<T> onInstanciate)
+        public static void WaitInstance(Action<T> onInstanciate)
         {
             _onInstantiates += onInstanciate;
         }
@@ -36,5 +36,10 @@ namespace StoneBreaker.Infrastructure
             _onInstantiates = null;
         }
 
+        private void OnDestroy()
+        {
+            _onInstantiates = null;
+            _instance = null;
+        }
     }
 }

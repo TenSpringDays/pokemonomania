@@ -1,21 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using StoneBreaker.Infrastructure;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class InGameLevelManager : MonoBehaviour {
 
-    public static InGameLevelManager instance;
-
-    [System.Serializable]
-    public class GameLevel
+namespace StoneBreaker
+{
+    public class InGameLevelManager : Singleton<InGameLevelManager>
     {
-        public GameObject[] StoneInThisLevel;
-    }
+        [System.Serializable]
+        public class GameLevel
+        {
+            [FormerlySerializedAs("StoneInThisLevel")] [SerializeField] private GameObject[] _stoneInThisLevel;
 
-    public GameLevel[] gameLevel;
+            public GameObject[] StonesInThislevel => _stoneInThisLevel;
+        }
 
-    void Awake()
-    {
-        instance = this;
+
+        [FormerlySerializedAs("gameLevel")] [SerializeField] private GameLevel[] _gameLevel;
+
+        public IReadOnlyList<GameLevel> GameLevels => _gameLevel;
     }
 }
