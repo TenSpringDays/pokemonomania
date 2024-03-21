@@ -10,7 +10,7 @@ namespace StoneBreaker
 
         public void BreakingTheStone()
         {
-            if (pokemonBreakerType == StoneManager.Instance.ActivePokemon.PokemonType)
+            if (pokemonBreakerType == StoneManager.Instance.ActivePokemon.Type)
             {
                 StoneManager.Instance.BreakingStone();
                 ScoreManager.Instance.AddScore();

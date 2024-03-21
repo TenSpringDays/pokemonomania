@@ -1,13 +1,20 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
 
 namespace StoneBreaker
 {
-    public class Pokemon : MonoBehaviour
+
+    public class Pokemon : MonoBehaviour, IImitator<Pokemon>
     {
-        [FormerlySerializedAs("_stoneType")] [SerializeField] private PokemonType pokemonType;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private PokemonType _type;
+
+        public PokemonType Type => _type;
         
-        public PokemonType PokemonType => pokemonType;
+        public void Imitate(Pokemon other)
+        {
+            _spriteRenderer.sprite = other._spriteRenderer.sprite;
+            _type = other._type;
+        }
     }
 }
