@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 namespace StoneBreaker
@@ -7,6 +9,7 @@ namespace StoneBreaker
     {
         [SerializeField] private PokemonControllerConfig _config;
         [SerializeField] private Pokemon[] _prefabs;
+        [SerializeField] private Transform _pokemonRoot;
 
         private Pokemon[] _pool = System.Array.Empty<Pokemon>();
         private int _spawnedCount;
@@ -18,6 +21,8 @@ namespace StoneBreaker
         private float BottomPosition => _config.ItemHeight * 0.5f;
         
         public int CurrentId { get; private set; }
+
+        public event Action<Pokemon> Catched;
 
         private void OnEnable()
         {
@@ -32,22 +37,23 @@ namespace StoneBreaker
             
             UpdatePoolSize();
             UpdatePosition();
-            UpdatePokemons();
+            UpdatePokemonPositions();
         }
 
         private void UpdatePosition()
         {
             float delta = _config.FallSpeed * Mathf.Pow(_position, _config.PositionPower) * Time.deltaTime;
             _position = Mathf.Max(_position - delta, BottomPosition);
+            _pokemonRoot.transform.localPosition = new Vector3(0f, _position, 0f);
         }
 
-        private void UpdatePokemons()
+        private void UpdatePokemonPositions()
         {
             float offset = 0;
 
             for (int i = 0; i < _spawnedCount; i++)
             {
-                float y = _position + offset;
+                float y = offset;
                 _pool[i].transform.localPosition = new Vector3(0f, y, 0f);
                 offset += _config.ItemHeight;
             }
@@ -56,7 +62,7 @@ namespace StoneBreaker
         public void Catch()
         {
             var first = _pool[0];
-            
+
             for (int i = 1; i < _spawnedCount; i++)
                 _pool[i - 1] = _pool[i];
 
@@ -66,6 +72,8 @@ namespace StoneBreaker
 
             _spawnedCount--;
             _position = Mathf.Min(_position + _config.ItemHeight, TopPosition);
+            
+            Catched?.Invoke(first);
         }
 
         private void UpdatePoolSize()
@@ -85,7 +93,7 @@ namespace StoneBreaker
                 
                 for (int i = oldSize; i < newSize; i++)
                 {
-                    _pool[i] = Instantiate(_prefabs[0], transform);
+                    _pool[i] = Instantiate(_prefabs[0], _pokemonRoot);
                     _pool[i].gameObject.SetActive(false);
                 }
             }
@@ -95,11 +103,11 @@ namespace StoneBreaker
         {
             if (_spawnedCount == _pool.Length)
                 return false;
-
+            
             ref var pokemon = ref _pool[_spawnedCount++];
             pokemon.gameObject.SetActive(true);
             pokemon.Init(_prefabs[_spawnId], _spawnId);
-            
+
             if (--_remainSequence <= 0)
                 UpdateCurrentSpawnSequence();
 
