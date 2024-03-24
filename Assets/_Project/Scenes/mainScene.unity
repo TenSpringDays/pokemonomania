@@ -649,7 +649,7 @@ GameObject:
   m_Component:
   - component: {fileID: 734747810}
   m_Layer: 0
-  m_Name: root
+  m_Name: root | pokemons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1145,6 +1145,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 905123468}
   m_CullTransparentMesh: 1
+--- !u!1 &933517749
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 933517750}
+  m_Layer: 0
+  m_Name: root | catch effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &933517750
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933517749}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1943863841}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &943573428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1986,7 +2017,7 @@ GameObject:
   m_Layer: 0
   m_Name: left dest
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1999,7 +2030,7 @@ Transform:
   m_GameObject: {fileID: 1460925867}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.39, y: 1.36, z: 0}
+  m_LocalPosition: {x: -7.18, y: -2.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2827,7 +2858,7 @@ GameObject:
   m_Layer: 0
   m_Name: right dest
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2840,7 +2871,7 @@ Transform:
   m_GameObject: {fileID: 1784169645}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.12, y: 1.27, z: 0}
+  m_LocalPosition: {x: 7.17, y: -2.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3073,6 +3104,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 734747810}
+  - {fileID: 933517750}
   - {fileID: 1460925868}
   - {fileID: 1784169646}
   m_Father: {fileID: 0}
@@ -3109,12 +3141,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: {fileID: 1943863840}
+  _catchEffectRoot: {fileID: 933517750}
   _destPoints:
   - {fileID: 1460925868}
   - {fileID: 1784169646}
-  _impulseAngleSpread: {x: 30, y: -30}
-  _impulseSpeedSpread: {x: 16, y: 20}
-  _disableDistanceTreshold: 0.5
+  _config: {fileID: 11400000, guid: b405e09b10b1cfd429a072eb37da0a3f, type: 2}
+  _prefab: {fileID: 5285642828973072007, guid: dd6a55216a86c094eb220b4a74c3d71b, type: 3}
 --- !u!1 &2018260094
 GameObject:
   m_ObjectHideFlags: 0

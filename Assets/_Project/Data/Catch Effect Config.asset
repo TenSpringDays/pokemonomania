@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 596bcd6e7472464ab8bdf2fdf961e7cd, type: 3}
-  m_Name: Score Config
+  m_Script: {fileID: 11500000, guid: 8e0e8fea420f481cb0b6ebd8d01f7ba6, type: 3}
+  m_Name: Catch Effect Config
   m_EditorClassIdentifier: 
-  <ScorePerBreaking>k__BackingField: 10
+  _initDirectionSpread: {x: -60, y: 60}
+  _movementMinSpeed: 3
+  _movementMaxSpeed: 10
+  _rotationSpeed: 720
+  _endThreshold: 0.3
