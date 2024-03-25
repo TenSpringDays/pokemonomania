@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 
 
-namespace StoneBreaker.Infrastructure
+namespace Infrastructure
 {
     public abstract class Singleton<T> : MonoBehaviour
         where T: MonoBehaviour

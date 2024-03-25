@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace StoneBreaker.Utils
+namespace Utils
 {
     public class UnorderedPool<T>
     {

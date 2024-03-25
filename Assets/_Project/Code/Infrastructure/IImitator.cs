@@ -1,4 +1,4 @@
-﻿namespace StoneBreaker
+﻿namespace Infrastructure
 {
     public interface IImitator<TFor>
     {
