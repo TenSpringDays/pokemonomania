@@ -5,7 +5,9 @@ using System.Linq;
 
 namespace Infrastructure
 {
-    public class ServiceLocator
+
+
+    public class ServiceLocator : IServiceLocator
     {
         private readonly List<object> _services = new ();
 
