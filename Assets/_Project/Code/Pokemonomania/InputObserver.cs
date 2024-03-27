@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 
 
-namespace StoneBreaker
+namespace Pokemonomania
 {
     public class InputObserver : MonoBehaviour
     {

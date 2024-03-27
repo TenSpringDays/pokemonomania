@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-namespace StoneBreaker.Hud
+namespace Pokemonomania.Hud
 {
     public class MainSceneHud : MonoBehaviour
     {

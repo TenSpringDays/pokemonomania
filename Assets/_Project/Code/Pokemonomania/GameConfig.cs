@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace StoneBreaker
+namespace Pokemonomania
 {
     [CreateAssetMenu(menuName = "Pokemonomania/Game Config")]
     public class ScoreConfig : ScriptableObject

@@ -1,9 +1,8 @@
 ﻿using Infrastructure;
 using UnityEngine;
-using UnityEngine.UI;
 
 
-namespace StoneBreaker
+namespace Pokemonomania
 {
     public class TimerManager : Singleton<TimerManager>
     {

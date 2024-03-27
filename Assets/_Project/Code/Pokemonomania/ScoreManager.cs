@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-namespace StoneBreaker
+namespace Pokemonomania
 {
     public class ScoreManager : Singleton<ScoreManager>
     {

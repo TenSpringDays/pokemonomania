@@ -28,30 +28,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pokemon B
       objectReference: {fileID: 0}
-    - target: {fileID: 7250091000267208360, guid: dd6a55216a86c094eb220b4a74c3d71b, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.41968316
+    - target: {fileID: 8929593586873439500, guid: dd6a55216a86c094eb220b4a74c3d71b, type: 3}
+      propertyPath: m_Size.x
+      value: 7.12
       objectReference: {fileID: 0}
-    - target: {fileID: 7250091000267208360, guid: dd6a55216a86c094eb220b4a74c3d71b, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.41968316
-      objectReference: {fileID: 0}
-    - target: {fileID: 7250091000267208360, guid: dd6a55216a86c094eb220b4a74c3d71b, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.41968316
-      objectReference: {fileID: 0}
-    - target: {fileID: 7250091000267208360, guid: dd6a55216a86c094eb220b4a74c3d71b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7250091000267208360, guid: dd6a55216a86c094eb220b4a74c3d71b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.043
+    - target: {fileID: 8929593586873439500, guid: dd6a55216a86c094eb220b4a74c3d71b, type: 3}
+      propertyPath: m_Size.y
+      value: 5.12
       objectReference: {fileID: 0}
     - target: {fileID: 8929593586873439500, guid: dd6a55216a86c094eb220b4a74c3d71b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -786975869, guid: f9ec5f6a1c4120841ad81f014477beab, type: 3}
+      objectReference: {fileID: 21300000, guid: 39f51f8d3854f1849bfae9d960481198, type: 3}
+    - target: {fileID: 8929593586873439500, guid: dd6a55216a86c094eb220b4a74c3d71b, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

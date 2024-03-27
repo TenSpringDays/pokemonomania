@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace StoneBreaker
+namespace Pokemonomania
 {
     [CreateAssetMenu(menuName = "StoneBreaker/" + nameof(GameMetaData))]
     public class GameMetaData : ScriptableObject

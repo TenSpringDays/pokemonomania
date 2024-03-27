@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace StoneBreaker
+namespace Pokemonomania
 {
     [CreateAssetMenu(menuName = "StoneBreaker/CatchEffectConfig")]
     public class CatchEffectConfig : ScriptableObject

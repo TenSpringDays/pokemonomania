@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 
 
-namespace StoneBreaker
+namespace Pokemonomania
 {
     public class SceneChanger : MonoBehaviour
     {

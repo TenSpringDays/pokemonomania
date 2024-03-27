@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using Infrastructure;
 
-namespace StoneBreaker
+namespace Pokemonomania
 {
-
     public class Pokemon : MonoBehaviour, IImitator<Pokemon>
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;

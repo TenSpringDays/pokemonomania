@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-namespace StoneBreaker
+namespace Pokemonomania
 {
     public class GameMetaDataToHud : MonoBehaviour
     {

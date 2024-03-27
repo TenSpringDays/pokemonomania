@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace StoneBreaker
+namespace Pokemonomania
 {
     [System.Serializable]
     public class PokemonControllerConfig

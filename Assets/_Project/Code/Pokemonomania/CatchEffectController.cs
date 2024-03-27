@@ -2,7 +2,7 @@
 using Utils;
 
 
-namespace StoneBreaker
+namespace Pokemonomania
 {
     public class CatchEffectController : MonoBehaviour
     {

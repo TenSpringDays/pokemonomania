@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 
 
-namespace StoneBreaker
+namespace Pokemonomania
 {
     public class WaveEffect : MonoBehaviour
     {
@@ -43,7 +40,7 @@ namespace StoneBreaker
         public void RunWave()
         {
             if (_count == _timeOffsets.Length)
-                Array.Resize(ref _timeOffsets, _count * 2);
+                System.Array.Resize(ref _timeOffsets, _count * 2);
 
             _timeOffsets[_count] = -_wavePeriod;
             _count += 1;

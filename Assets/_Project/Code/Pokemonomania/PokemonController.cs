@@ -1,9 +1,7 @@
-﻿using System;
-using UnityEngine;
-using Random = UnityEngine.Random;
+﻿using UnityEngine;
 
 
-namespace StoneBreaker
+namespace Pokemonomania
 {
     public class PokemonController : MonoBehaviour
     {
@@ -22,7 +20,7 @@ namespace StoneBreaker
         
         public int CurrentId { get; private set; }
 
-        public event Action<Pokemon> Catched;
+        public event System.Action<Pokemon> Catched;
 
         private void OnEnable()
         {
