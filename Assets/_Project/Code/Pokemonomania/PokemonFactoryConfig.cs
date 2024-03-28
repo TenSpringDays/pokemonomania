@@ -4,7 +4,7 @@
 namespace Pokemonomania
 {
     [System.Serializable]
-    public class PokemonControllerConfig
+    public class PokemonFactoryConfig
     {
         public float ItemHeight = 1f;
         public int MaxItems = 10;

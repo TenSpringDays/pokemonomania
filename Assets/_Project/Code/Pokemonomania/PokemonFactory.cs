@@ -3,9 +3,9 @@
 
 namespace Pokemonomania
 {
-    public class PokemonController : MonoBehaviour
+    public class PokemonFactory : MonoBehaviour
     {
-        [SerializeField] private PokemonControllerConfig _config;
+        [SerializeField] private PokemonFactoryConfig _config;
         [SerializeField] private Pokemon[] _prefabs;
         [SerializeField] private Transform _pokemonRoot;
 

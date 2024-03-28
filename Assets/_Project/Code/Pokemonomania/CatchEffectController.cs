@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 using Utils;
 
 
@@ -6,7 +7,7 @@ namespace Pokemonomania
 {
     public class CatchEffectController : MonoBehaviour
     {
-        [SerializeField] private PokemonController _controller;
+        [FormerlySerializedAs("_controller")] [SerializeField] private PokemonFactory factory;
         [SerializeField] private Transform _catchEffectRoot;
         [SerializeField] private Transform[] _destPoints;
         [SerializeField] private CatchEffectConfig _config;
@@ -17,7 +18,7 @@ namespace Pokemonomania
 
         private void OnEnable()
         {
-            _controller.Catched += ControllerOnCatched;
+            factory.Catched += FactoryOnCatched;
 
             _pool2 = new UnorderedPool<CatchEffect>(
                 createFunc: () =>
@@ -33,7 +34,7 @@ namespace Pokemonomania
 
         private void OnDisable()
         {
-            _controller.Catched -= ControllerOnCatched;
+            factory.Catched -= FactoryOnCatched;
 
             _pool2 = null;
 
@@ -53,7 +54,7 @@ namespace Pokemonomania
             }
         }
 
-        private void ControllerOnCatched(Pokemon obj)
+        private void FactoryOnCatched(Pokemon obj)
         {
             _pool2.Get().Init(obj, _destPoints[obj.Id].position, _config);
         }

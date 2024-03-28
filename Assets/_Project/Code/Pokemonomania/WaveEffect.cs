@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Pokemonomania
 {
     public class WaveEffect : MonoBehaviour
     {
-        [SerializeField] private PokemonController _controller;
+        [FormerlySerializedAs("_controller")] [SerializeField] private PokemonFactory factory;
         [SerializeField] private Transform _root;
         [SerializeField] private float _waveLength = 8f;
         [SerializeField] private float _wavePeriod = 6f;
@@ -18,15 +19,15 @@ namespace Pokemonomania
 
         private void OnEnable()
         {
-            _controller.Catched += ControllerOnCatched;
+            factory.Catched += FactoryOnCatched;
         }
 
         private void OnDisable()
         {
-            _controller.Catched -= ControllerOnCatched;
+            factory.Catched -= FactoryOnCatched;
         }
 
-        private void ControllerOnCatched(Pokemon obj)
+        private void FactoryOnCatched(Pokemon obj)
         {
             RunWave();
         }

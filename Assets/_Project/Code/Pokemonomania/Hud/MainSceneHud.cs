@@ -1,6 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using Pokemonomania.Services;
 
 
 namespace Pokemonomania.Hud
@@ -11,46 +11,56 @@ namespace Pokemonomania.Hud
         [SerializeField] private TMP_Text _comboText;
         [SerializeField] private TMP_Text _multiplierText;
         [SerializeField] private TMP_Text _timeText;
-        [SerializeField] private Image _timeProgres;
+        
+        private TimerService _timeService;
+        private ComboService _comboService;
+        private ScoreService _scoreService;
 
-        private void OnEnable()
+        public void Construct(TimerService timerService, ComboService comboService, ScoreService scoreService)
         {
-            ScoreManager.Instance.ScoreChanged += OnScoreChanged;
-            ComboManager.Instance.ComboChanged += OnComboChanged;
-            ComboManager.Instance.ScoreMultiplyChanged += OnScoreMultiplyChanged;
-
-            OnScoreChanged(ScoreManager.Instance.Score);
-            OnComboChanged(ComboManager.Instance.TotalCombo);
-            OnScoreMultiplyChanged(ComboManager.Instance.Stage);
+            _timeService = timerService;
+            _comboService = comboService;
+            _scoreService = scoreService;
+        }
+        
+        public void Enable()
+        {
+            _scoreService.Changed += OnScoreChanged;
+            _comboService.Changed += OnComboChanged;
+            _comboService.StageChanged += OnComboStageChanged;
+            
+            OnScoreChanged(_scoreService.Score);
+            OnComboChanged(_comboService.TotalCombo);
+            OnComboStageChanged(_comboService.Stage);
         }
 
-        private void OnDisable()
+        public void Disable()
         {
-            if (ScoreManager.Instance)
-                ScoreManager.Instance.ScoreChanged -= OnScoreChanged;
+            _scoreService.Changed -= OnScoreChanged;
+            _comboService.Changed -= OnComboChanged;
+            _comboService.StageChanged -= OnComboStageChanged;
         }
 
-        private void LateUpdate()
+        public void Tick(float delta)
         {
             UpdateTimer();
         }
 
         private void UpdateTimer()
         {
-            var tm = TimerManager.Instance;
-            _timeText.SetText("{0.00}", tm.Time);
-            _timeProgres.fillAmount = tm.Time / tm.MaxTime;
+            var time = _timeService.Elapsed;
+            _timeText.SetText("{0.00}", time);
         }
 
-        private void OnScoreMultiplyChanged(ScoreMultiplyStage arg0)
+        private void OnComboStageChanged(ComboStage stage)
         {
-            _multiplierText.SetText("{0.00}", arg0.Multiplying);
-            _comboText.color = arg0.ComboTextColor;
+            _multiplierText.SetText("{0.00}", stage.Multiplier);
+            _comboText.color = stage.TextColor;
         }
 
-        private void OnComboChanged(int arg0)
+        private void OnComboChanged(int combo)
         {
-            _comboText.SetText("{}", arg0);
+            _comboText.SetText("{}", combo);
         }
 
         private void OnScoreChanged(int score)

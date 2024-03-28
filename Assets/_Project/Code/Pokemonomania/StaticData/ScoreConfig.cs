@@ -3,45 +3,37 @@
 
 namespace Pokemonomania
 {
-    [CreateAssetMenu(menuName = "Pokemonomania/Game Config")]
+    [CreateAssetMenu(menuName = "Pokemonomania/Score Config")]
     public class ScoreConfig : ScriptableObject
     {
         public int ScorePerCatch = 20;
         public float DropComboDelay = 0.8f;
-        public MultiplyStage[] MultiplyStages =
+        public ComboStage[] MultiplyStages =
         {
-            new MultiplyStage()
+            new ComboStage()
             {
                 RequiredCombo = 0,
                 Multiplier = 0.5f,
                 TextColor = Color.gray,
             },
-            new MultiplyStage()
+            new ComboStage()
             {
                 RequiredCombo = 10,
                 Multiplier = 1.0f,
                 TextColor = Color.white,
             },
-            new MultiplyStage()
+            new ComboStage()
             {
                 RequiredCombo = 20,
                 Multiplier = 1.5f,
                 TextColor = Color.green,
             },
-            new MultiplyStage()
+            new ComboStage()
             {
                 RequiredCombo = 40,
                 Multiplier = 3f,
                 TextColor = Color.magenta,
             },
         };
-
-        [System.Serializable]
-        public struct MultiplyStage
-        {
-            public int RequiredCombo;
-            public float Multiplier;
-            public Color TextColor;
-        }
     }
 }
