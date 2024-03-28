@@ -57,7 +57,7 @@ namespace Pokemonomania
             }
         }
 
-        public void Catch()
+        public void Pop()
         {
             var first = _pool[0];
 

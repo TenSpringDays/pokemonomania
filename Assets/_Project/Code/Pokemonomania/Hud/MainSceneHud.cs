@@ -26,18 +26,18 @@ namespace Pokemonomania.Hud
         public void Enable()
         {
             _scoreService.Changed += OnScoreChanged;
-            _comboService.Changed += OnComboChanged;
+            _comboService.CountChanged += OnComboCountChanged;
             _comboService.StageChanged += OnComboStageChanged;
             
             OnScoreChanged(_scoreService.Score);
-            OnComboChanged(_comboService.TotalCombo);
+            OnComboCountChanged(_comboService.ComboCount);
             OnComboStageChanged(_comboService.Stage);
         }
 
         public void Disable()
         {
             _scoreService.Changed -= OnScoreChanged;
-            _comboService.Changed -= OnComboChanged;
+            _comboService.CountChanged -= OnComboCountChanged;
             _comboService.StageChanged -= OnComboStageChanged;
         }
 
@@ -58,7 +58,7 @@ namespace Pokemonomania.Hud
             _comboText.color = stage.TextColor;
         }
 
-        private void OnComboChanged(int combo)
+        private void OnComboCountChanged(int combo)
         {
             _comboText.SetText("{}", combo);
         }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Pokemonomania
 {
-    public class KeyboardInputService : IInputService
+    public class KeyboardInput : IInputService
     {
         private struct EventPair
         {
@@ -26,36 +26,47 @@ namespace Pokemonomania
 
 
         private readonly KeyboardConfig _config;
+        private readonly Queue<int> _eventsQueue;
         private EventPair[] _eventPairs;
 
-        public KeyboardInputService(KeyboardConfig config)
+        public KeyboardInput(KeyboardConfig config)
         {
             _config = config;
+            _eventsQueue = new Queue<int>(8);
         }
         
         public event Action<int> Pressed; 
 
         public void Enable(int maxInputIndexes)
         {
-            var arr = ConfigKeysToEventPairs(_config.Keys);
+            var arr = ConfigKeysToEventPairs(_config.Keys, maxInputIndexes);
             _eventPairs = arr;
         }
 
         public void Disable()
         {
+            LostFocus();
             _eventPairs = null;
+            Pressed = null;
         }
 
         public void Tick(float delta)
         {
-            float time = Time.realtimeSinceStartup;
-            UpdatePressRepeat(time);
-            UpdateButtonDown(time);
-            UpdateButtonUp();
+            if (_eventPairs != null && _eventPairs.Length > 0)
+            {
+                float time = Time.realtimeSinceStartup;
+                UpdatePressRepeat(time);
+                UpdateButtonDown(time);
+                UpdateButtonUp();
+                InvokeEvent();
+            }
         }
 
         public void LostFocus()
         {
+            if (_eventPairs == null)
+                return;
+            
             for (int i = 0; i < _eventPairs.Length; i++)
             {
                 ref var item = ref _eventPairs[i];
@@ -66,6 +77,12 @@ namespace Pokemonomania
                     item.PressTime = 0f;
                 }
             }
+        }
+
+        private void InvokeEvent()
+        {
+            while (_eventsQueue.TryDequeue(out int index))
+                Pressed?.Invoke(index);
         }
 
         private void UpdatePressRepeat(float time)
@@ -79,7 +96,7 @@ namespace Pokemonomania
                 if (item.Pressed && item.PressTime < delayed)
                 {
                     item.PressTime += _config.RepeatDelay;
-                    Pressed?.Invoke(item.Index);
+                    _eventsQueue.Enqueue(item.Index);
                 } 
             }
         }
@@ -94,7 +111,7 @@ namespace Pokemonomania
                 {
                     item.Pressed = true;
                     item.PressTime = time;
-                    Pressed?.Invoke(item.Index);
+                    _eventsQueue.Enqueue(item.Index);
                 }
             }
         }
@@ -113,15 +130,16 @@ namespace Pokemonomania
             }
         }
 
-        private static EventPair[] ConfigKeysToEventPairs(KeyCode[][] keys)
+        private static EventPair[] ConfigKeysToEventPairs(KeyboardConfig.KeyVariants[] keys, int maxInputIndexes)
         {
+            int count = Mathf.Min(maxInputIndexes, keys.Length);
             var list = new List<EventPair>();
 
-            for (int i = 0; i < keys.Length; i++)
+            for (int i = 0; i < count; i++)
             {
-                for (int j = 0; j < keys[i].Length; j++)
+                for (int j = 0; j < keys[i].Keys.Length; j++)
                 {
-                    list.Add(new EventPair(i, keys[i][j]));
+                    list.Add(new EventPair(i, keys[i].Keys[j]));
                 }
             }
 

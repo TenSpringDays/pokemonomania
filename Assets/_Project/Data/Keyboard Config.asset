@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f9a4e111454d5db367989cfcc4cbe7, type: 3}
   m_Name: Keyboard Config
   m_EditorClassIdentifier: 
-  RepeatDelay: 0.1
+  Keys:
+  - Keys: 6100000014010000
+  - Keys: 6400000013010000
+  - Keys: 7700000011010000
+  RepeatDelay: 0.15

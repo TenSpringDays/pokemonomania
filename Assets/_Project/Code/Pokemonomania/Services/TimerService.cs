@@ -9,9 +9,12 @@ namespace Pokemonomania.Services
 
         public float Elapsed => _elapsed;
 
+        public bool Enabled { get; set; }
+
         public void Tick(float delta)
         {
-            _elapsed += delta;
+            if (Enabled)
+                _elapsed += delta;
         }
     }
 }

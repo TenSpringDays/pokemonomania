@@ -1,10 +1,26 @@
-﻿namespace Pokemonomania.Data
+﻿using UnityEngine.Serialization;
+
+
+namespace Pokemonomania.Data
 {
     [System.Serializable]
     public class UserStats
     {
-        public int MaxScore;
-        public int MaxCombo;
-        public float LongestRun;
+        public int Version;
+        
+        [System.Serializable]
+        public class Values
+        {
+            public int Score;
+            public int Combo;
+            public float Elapsed;
+        }
+
+
+        public Values Best = new ();
+        public Values Last = new ();
+        public EndGameStatus LastEndGameStatus;
     }
+
+
 }

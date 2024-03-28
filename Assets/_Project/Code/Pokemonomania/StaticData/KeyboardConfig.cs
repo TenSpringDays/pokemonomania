@@ -6,11 +6,18 @@ namespace Pokemonomania
     [CreateAssetMenu(menuName = "Pokemonomania/Keyboard Config")]
     public class KeyboardConfig : ScriptableObject
     {
-        public KeyCode[][] Keys = new KeyCode[][]
+        [System.Serializable]
+        public struct KeyVariants
         {
-            new KeyCode[] { KeyCode.A, KeyCode.LeftArrow },
-            new KeyCode[] { KeyCode.D, KeyCode.RightArrow },
-            new KeyCode[] { KeyCode.W, KeyCode.UpArrow },
+            public KeyCode[] Keys;
+        }
+
+
+        public KeyVariants[] Keys = new KeyVariants[]
+        {
+            new KeyVariants { Keys = new KeyCode[] { KeyCode.A, KeyCode.LeftArrow } },
+            new KeyVariants { Keys = new KeyCode[] { KeyCode.D, KeyCode.RightArrow } },
+            new KeyVariants { Keys = new KeyCode[] { KeyCode.W, KeyCode.UpArrow } },
         };
 
         public float RepeatDelay = 0.1f;

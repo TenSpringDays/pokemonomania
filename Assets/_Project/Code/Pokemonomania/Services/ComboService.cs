@@ -1,4 +1,5 @@
-﻿using UnityEngine.Events;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 
 namespace Pokemonomania.Services
@@ -7,7 +8,7 @@ namespace Pokemonomania.Services
     {
         private readonly ScoreConfig _config;
         private int _currentStgae;
-        private int _totalCombo;
+        private int _comboCount;
         private int _maximumComboInOnePlay;
         private float _comboRangeTime;
 
@@ -16,10 +17,11 @@ namespace Pokemonomania.Services
             _config = config;
         }
 
-        public int TotalCombo => _totalCombo;
+        public int ComboCount => _comboCount;
         public ComboStage Stage => _config.MultiplyStages[_currentStgae];
+        public int MaxCombo => _maximumComboInOnePlay;
 
-        public event UnityAction<int> Changed;
+        public event UnityAction<int> CountChanged;
         public event UnityAction<ComboStage> StageChanged;
 
         public void Tick(float delta)
@@ -32,16 +34,16 @@ namespace Pokemonomania.Services
                 {
                     DropCombo();
                     ResetCombo();
-                    UpdateMaximumComboInOnePlay(_totalCombo);
                 }
             }
         }
 
         public void AddCombo()
         {
-            _totalCombo += 1;
+            _comboCount += 1;
+            _maximumComboInOnePlay = Mathf.Max(_maximumComboInOnePlay, _comboCount);
             _comboRangeTime = _config.DropComboDelay;
-            Changed?.Invoke(_totalCombo);
+            CountChanged?.Invoke(_comboCount);
 
             if (TryMoveNextStage())
                 StageChanged?.Invoke(_config.MultiplyStages[_currentStgae]);
@@ -50,10 +52,9 @@ namespace Pokemonomania.Services
         public void DropCombo()
         {
             _comboRangeTime = 0;
-            UpdateMaximumComboInOnePlay(_totalCombo);
             ResetCombo();
             
-            Changed?.Invoke(_totalCombo);
+            CountChanged?.Invoke(_comboCount);
             StageChanged?.Invoke(_config.MultiplyStages[_currentStgae]);
         }
 
@@ -61,7 +62,7 @@ namespace Pokemonomania.Services
         {
             if (_currentStgae < _config.MultiplyStages.Length - 1)
             {
-                if (_totalCombo >= _config.MultiplyStages[_currentStgae + 1].RequiredCombo)
+                if (_comboCount >= _config.MultiplyStages[_currentStgae + 1].RequiredCombo)
                 {
                     _currentStgae++;
                     return true;
@@ -73,16 +74,8 @@ namespace Pokemonomania.Services
 
         private void ResetCombo()
         {
-            _totalCombo = 0;
+            _comboCount = 0;
             _currentStgae = 0;
-        }
-
-        private void UpdateMaximumComboInOnePlay(int newTotalCombo)
-        {
-            if (newTotalCombo > _maximumComboInOnePlay)
-            {
-                _maximumComboInOnePlay = newTotalCombo;
-            }
         }
     }
 }
