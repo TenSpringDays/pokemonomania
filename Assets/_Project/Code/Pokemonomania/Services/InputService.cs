@@ -42,9 +42,10 @@ namespace Pokemonomania.Services
             _hudInput.Disable();
         }
 
-        public void Tick(float delta)
+        public void Tick(float time)
         {
-            _keyboardInput.Tick(delta);
+            _keyboardInput.Tick(time);
+            _hudInput.Tick(time);
         }
 
         public void LostFocus()

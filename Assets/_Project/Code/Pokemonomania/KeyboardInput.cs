@@ -1,149 +1,82 @@
 ﻿using System;
-using System.Collections.Generic;
 using Pokemonomania.Hud;
 using UnityEngine;
+using Utils;
 
 
 namespace Pokemonomania
 {
     public class KeyboardInput : IInputService
     {
-        private struct EventPair
-        {
-            public readonly int Index;
-            public readonly KeyCode Key;
-            public float PressTime;
-            public bool Pressed;
+        private readonly InputConfig _config;
+        private RepeatingClick[] _clicks;
+        private bool _enabled;
 
-            public EventPair(int index, KeyCode key)
-            {
-                Index = index;
-                Key = key;
-                PressTime = 0f;
-                Pressed = false;
-            }
-        }
-
-
-        private readonly KeyboardConfig _config;
-        private readonly Queue<int> _eventsQueue;
-        private EventPair[] _eventPairs;
-
-        public KeyboardInput(KeyboardConfig config)
+        public KeyboardInput(InputConfig config)
         {
             _config = config;
-            _eventsQueue = new Queue<int>(8);
         }
-        
-        public event Action<int> Pressed; 
+
+        public event Action<int> Pressed;
 
         public void Enable(int maxInputIndexes)
         {
-            var arr = ConfigKeysToEventPairs(_config.Keys, maxInputIndexes);
-            _eventPairs = arr;
+            var count = Mathf.Min(_config.Keys.Length, maxInputIndexes);
+            _clicks = new RepeatingClick[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                var index = i;
+                _clicks[i] = new RepeatingClick(
+                    _config.RepeatDelay,
+                    () => Pressed?.Invoke(index));
+            }
+            
+            _enabled = true;
         }
 
         public void Disable()
         {
-            LostFocus();
-            _eventPairs = null;
             Pressed = null;
+            _enabled = false;
         }
 
-        public void Tick(float delta)
+        public void Tick(float time)
         {
-            if (_eventPairs != null && _eventPairs.Length > 0)
+            if (!_enabled)
+                return;
+
+            for (int i = 0; i < _clicks.Length; i++)
             {
-                float time = Time.realtimeSinceStartup;
-                UpdatePressRepeat(time);
-                UpdateButtonDown(time);
-                UpdateButtonUp();
-                InvokeEvent();
+                var variants = _config.Keys[i].Variants;
+
+                for (int j = 0; j < variants.Length; j++)
+                {
+                    if (Input.GetKeyDown(variants[j]))
+                    {
+                        _clicks[i].Down(time, addRequest: true);
+                        break;
+                    }
+
+                    if (Input.GetKeyUp(variants[j]))
+                        _clicks[i].Up();
+                }
             }
+
+            for (int i = 0; i < _clicks.Length; i++)
+            {
+                _clicks[i].Delay = _config.RepeatDelay;
+                _clicks[i].Tick(time);
+            }
+
+            for (int i = 0; i < _clicks.Length; i++)
+                _clicks[i].InvokeRequests(oneTime: true);
         }
 
         public void LostFocus()
         {
-            if (_eventPairs == null)
-                return;
-            
-            for (int i = 0; i < _eventPairs.Length; i++)
-            {
-                ref var item = ref _eventPairs[i];
-
-                if (item.Pressed && Input.GetKeyUp(item.Key))
-                {
-                    item.Pressed = false;
-                    item.PressTime = 0f;
-                }
-            }
-        }
-
-        private void InvokeEvent()
-        {
-            while (_eventsQueue.TryDequeue(out int index))
-                Pressed?.Invoke(index);
-        }
-
-        private void UpdatePressRepeat(float time)
-        {
-            float delayed = time - _config.RepeatDelay;
-            
-            for (int i = 0; i < _eventPairs.Length; i++)
-            {
-                ref var item = ref _eventPairs[i];
-
-                if (item.Pressed && item.PressTime < delayed)
-                {
-                    item.PressTime += _config.RepeatDelay;
-                    _eventsQueue.Enqueue(item.Index);
-                } 
-            }
-        }
-
-        private void UpdateButtonDown(float time)
-        {
-            for (int i = 0; i < _eventPairs.Length; i++)
-            {
-                ref var item = ref _eventPairs[i];
-
-                if (Input.GetKeyDown(item.Key))
-                {
-                    item.Pressed = true;
-                    item.PressTime = time;
-                    _eventsQueue.Enqueue(item.Index);
-                }
-            }
-        }
-
-        private void UpdateButtonUp()
-        {
-            for (int i = 0; i < _eventPairs.Length; i++)
-            {
-                ref var item = ref _eventPairs[i];
-
-                if (item.Pressed && Input.GetKeyUp(item.Key))
-                {
-                    item.Pressed = false;
-                    item.PressTime = 0f;
-                }
-            }
-        }
-
-        private static EventPair[] ConfigKeysToEventPairs(KeyboardConfig.KeyVariants[] keys, int maxInputIndexes)
-        {
-            int count = Mathf.Min(maxInputIndexes, keys.Length);
-            var list = new List<EventPair>();
-
-            for (int i = 0; i < count; i++)
-            {
-                for (int j = 0; j < keys[i].Keys.Length; j++)
-                {
-                    list.Add(new EventPair(i, keys[i].Keys[j]));
-                }
-            }
-
-            return list.ToArray();
+            for (int i = 0; i < _clicks.Length; i++)
+                _clicks[i].Up();
         }
     }
 }
