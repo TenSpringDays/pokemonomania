@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/winloseScene.unity
     guid: aec628da27afe8440a113088753f43af
+  - enabled: 1
+    path: Assets/_Project/Scenes/TestHub.unity
+    guid: ff34b129531e1e54886d0fd4e99254c0
   m_configObjects: {}
