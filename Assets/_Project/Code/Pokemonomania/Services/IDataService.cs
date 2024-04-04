@@ -5,8 +5,8 @@ namespace Pokemonomania.Services
 {
     public interface IDataService
     {
-        UserStats LoadUserStats();
+        T Load<T>() where T : new();
 
-        void SaveUserStats(UserStats stats);
+        void Save<T>(T data) where T : new();
     }
 }

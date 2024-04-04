@@ -1,13 +1,8 @@
-﻿using UnityEngine.Serialization;
-
-
-namespace Pokemonomania.Data
+﻿namespace Pokemonomania.Data
 {
     [System.Serializable]
     public class UserStats
     {
-        public int Version;
-        
         [System.Serializable]
         public class Values
         {
@@ -21,6 +16,4 @@ namespace Pokemonomania.Data
         public Values Last = new ();
         public EndGameStatus LastEndGameStatus;
     }
-
-
 }

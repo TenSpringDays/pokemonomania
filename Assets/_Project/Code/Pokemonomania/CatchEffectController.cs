@@ -1,62 +1,85 @@
-﻿using UnityEngine;
-using UnityEngine.Serialization;
-using Utils;
+﻿using System;
+using System.Collections.Generic;
+using Pokemonomania.Data;
+using Pokemonomania.Effects;
+using Pokemonomania.Services;
+using Pokemonomania.StaticData;
+using UnityEngine;
 
 
 namespace Pokemonomania
 {
     public class CatchEffectController : MonoBehaviour
     {
-        [FormerlySerializedAs("_controller")] [SerializeField] private PokemonFactory factory;
-        [SerializeField] private Transform _catchEffectRoot;
-        [SerializeField] private Transform[] _destPoints;
-        [SerializeField] private CatchEffectConfig _config;
-        [SerializeField] private Pokemon _prefab;
+        [SerializeField] private Transform _effectRoot;
+        [SerializeField] private Transform[] _catchAnchors;
+        private readonly HashSet<CatchEffector> _effectors = new();
+        private readonly Stack<CatchEffector> _tempBuffer = new();
+        private GameResourcesData _gameResourcesData;
+        private PokemonFactory _factory;
+        private IDataService _dataSerivce;
+        private GameSceneData _gameSceneData;
 
-        private UnorderedPool<CatchEffect> _pool2;
-
-
-        private void OnEnable()
+        public void Construct(PokemonFactory factory, GameResourcesData gameResourcesData, IDataService dataService)
         {
-            factory.Catched += FactoryOnCatched;
-
-            _pool2 = new UnorderedPool<CatchEffect>(
-                createFunc: () =>
-                {
-                    var effect = new CatchEffect(Instantiate(_prefab, _catchEffectRoot));
-                    effect.SetPokemonVisibility(false);
-                    return effect;
-                },
-                getAction: x => x.SetPokemonVisibility(true),
-                releaseAction: x => x.SetPokemonVisibility(false)
-            );
+            _dataSerivce = dataService;
+            _factory = factory;
+            _gameResourcesData = gameResourcesData;
         }
 
-        private void OnDisable()
+        private Transform GetAnchor(int id)
         {
-            factory.Catched -= FactoryOnCatched;
+            if (_gameSceneData.LeftButton == id)
+                return _catchAnchors[0];
 
-            _pool2 = null;
+            if (_gameSceneData.RightButton == id)
+                return _catchAnchors[1];
 
-            for (int i = 0; i < _catchEffectRoot.childCount; i++)
-                Destroy(_catchEffectRoot.GetChild(i).gameObject);
+            if (_gameSceneData.SpectialButton == id)
+                return _catchAnchors[2];
+
+            throw new Exception("invalid id and scene data");
+        }
+        
+        private void Start()
+        {
+            _gameSceneData = _dataSerivce.Load<GameSceneData>();
+            _factory.Catched += OnCatched;
+        }
+
+        private void OnDestroy()
+        {
+            _factory.Catched -= OnCatched;
+        }
+
+        private void OnCatched(Pokemon obj)
+        {
+            var newPokemon = Instantiate(
+                _gameResourcesData.Pokemons[obj.Id],
+                obj.transform.position,
+                obj.transform.rotation,
+                _effectRoot
+            );
+
+            var effector = newPokemon.Effector;
+            effector.Construct(GetAnchor(obj.Id));
+            effector.Prepare();
+            _effectors.Add(effector);
         }
 
         private void Update()
         {
-            for (int i = 0; i < _pool2.Count; i++)
+            foreach (var effector in _effectors)
             {
-                var effect = _pool2.At(i);
-                effect.Update(Time.deltaTime);
-
-                if (effect.InEnd)
-                    _pool2.ReleaseAt(i--);
+                if (!effector.Tick())
+                    _tempBuffer.Push(effector);
             }
-        }
 
-        private void FactoryOnCatched(Pokemon obj)
-        {
-            _pool2.Get().Init(obj, _destPoints[obj.Id].position, _config);
+            while (_tempBuffer.TryPop(out var del))
+            {
+                _effectors.Remove(del);
+                Destroy(del.gameObject);
+            }
         }
     }
 }

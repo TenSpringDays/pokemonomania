@@ -2,8 +2,8 @@ using System;
 using Infrastructure;
 using Pokemonomania.Hud;
 using Pokemonomania.Services;
+using Pokemonomania.StaticData;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
 namespace Pokemonomania
@@ -16,8 +16,10 @@ namespace Pokemonomania
         [SerializeField] private HudInput _hudInput;
         [SerializeField] private PokemonFactory _pokemonFactory;
         [SerializeField] private LooseCurtainView _looseCurtainView;
+        [SerializeField] private CatchEffectController _catchEffectController;
 
-        private ProjectBootstrap _projectBootstrap;
+        private IDataService _dataService;
+        private GameResourcesData _gameResourcesData;
         private ScoreService _scoreService;
         private ComboService _comboService;
         private TimerService _timerService;
@@ -26,7 +28,11 @@ namespace Pokemonomania
 
         private void Start()
         {
-            _projectBootstrap = GameObject.FindGameObjectWithTag("ProjectBootstrap").GetComponent<ProjectBootstrap>();
+            var projectBootstrap = GameObject.FindGameObjectWithTag("ProjectBootstrap")
+                .GetComponent<ProjectBootstrap>();
+
+            _gameResourcesData = projectBootstrap.GameResourcesData;
+            _dataService = projectBootstrap.DataService;
             
             _hudInput.Construct(_inputConfig);
             _timerService = new TimerService();
@@ -34,6 +40,7 @@ namespace Pokemonomania
             _scoreService = new ScoreService(_scoreConfig, _comboService);
             _inputService = new InputService(new KeyboardInput(_inputConfig), _hudInput);
             _hudView.Construct(_timerService, _comboService, _scoreService);
+            _catchEffectController.Construct(_pokemonFactory, _gameResourcesData, _dataService);
 
             _gameStateFlow = new GameStateFlow(
                 _pokemonFactory,
@@ -43,7 +50,7 @@ namespace Pokemonomania
                 this,
                 _looseCurtainView,
                 _timerService,
-                _projectBootstrap.DataService
+                _dataService
             );
 
             _hudView.Enable();

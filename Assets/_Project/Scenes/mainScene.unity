@@ -312,6 +312,7 @@ MonoBehaviour:
   _hudInput: {fileID: 4498832199930461137}
   _pokemonFactory: {fileID: 1943863840}
   _looseCurtainView: {fileID: 3795863624395703512}
+  _catchEffectController: {fileID: 1943863842}
 --- !u!1 &660111261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,7 +1112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1943863841}
   - component: {fileID: 1943863840}
-  - component: {fileID: 1943863843}
+  - component: {fileID: 1943863842}
   m_Layer: 0
   m_Name: PokemonFactory
   m_TagString: Untagged
@@ -1160,7 +1161,7 @@ Transform:
   - {fileID: 1784169646}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1943863843
+--- !u!114 &1943863842
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1169,16 +1170,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1943863839}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07513fa8de884d67a7073e8f187ca95d, type: 3}
+  m_Script: {fileID: 11500000, guid: c302338562bd4f7bb62e7f5daa822616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  factory: {fileID: 1943863840}
-  _catchEffectRoot: {fileID: 933517750}
-  _destPoints:
+  _effectRoot: {fileID: 933517750}
+  _catchAnchors:
   - {fileID: 1460925868}
   - {fileID: 1784169646}
-  _config: {fileID: 11400000, guid: b405e09b10b1cfd429a072eb37da0a3f, type: 2}
-  _prefab: {fileID: 5285642828973072007, guid: dd6a55216a86c094eb220b4a74c3d71b, type: 3}
 --- !u!114 &68650083177392430
 MonoBehaviour:
   m_ObjectHideFlags: 0

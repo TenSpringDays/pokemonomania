@@ -37,7 +37,7 @@ namespace Pokemonomania
 
         public void Enable()
         {
-            var stats = _dataService.LoadUserStats();
+            var stats = _dataService.Load<UserStats>();
             var values = _statsType switch
             {
                 StatsType.Best => stats.Best,

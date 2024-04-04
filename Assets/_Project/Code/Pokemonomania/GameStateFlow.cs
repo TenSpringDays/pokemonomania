@@ -85,7 +85,7 @@ namespace Pokemonomania
 
         private void UpdateUserStats()
         {
-            var stats = _dataService.LoadUserStats();
+            var stats = _dataService.Load<UserStats>();
 
             float elapsed = _timerService.Elapsed;
             int score = _scoreService.Score;
@@ -100,8 +100,8 @@ namespace Pokemonomania
             stats.Best.Combo = Mathf.Max(stats.Best.Combo, combo);
 
             stats.LastEndGameStatus = EndGameStatus.Loose;
-            
-            _dataService.SaveUserStats(stats);
+
+            _dataService.Save(stats);
         }
     }
 }

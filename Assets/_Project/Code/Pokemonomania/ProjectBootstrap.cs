@@ -1,5 +1,5 @@
-﻿using System;
-using Pokemonomania.Services;
+﻿using Pokemonomania.Services;
+using Pokemonomania.StaticData;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +8,9 @@ namespace Pokemonomania
 {
     public class ProjectBootstrap : MonoBehaviour
     {
+        [SerializeField] private GameResourcesData _gameResourcesData;
+
+        public GameResourcesData GameResourcesData => _gameResourcesData;
         public IDataService DataService { get; private set; }
 
         private void Start()

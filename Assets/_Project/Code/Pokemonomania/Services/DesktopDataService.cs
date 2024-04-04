@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Pokemonomania.Data;
 using UnityEngine;
 
 
@@ -14,22 +13,14 @@ namespace Pokemonomania.Services
             public T Data;
             public string Json;
         }
-        
-        private const string UserStatsFile = "UserLastStats.json";
-        private readonly Dictionary<string, object> _virtuals = new(); 
 
-        public UserStats LoadUserStats()
-        {
-            return Load<UserStats>(UserStatsFile);
-        }
 
-        public void SaveUserStats(UserStats stats)
-        {
-            Save(stats, UserStatsFile);
-        }
+        private const string SaveFileExtension = ".json";
+        private readonly Dictionary<string, object> _virtuals = new();
 
-        private void Save<T>(T obj, string fileName) where T : new()
+        public void Save<T>(T obj) where T : new()
         {
+            var fileName = typeof(T).ToString() + SaveFileExtension;
             var json = JsonUtility.ToJson(obj, true);
             
             if (_virtuals.TryGetValue(fileName, out object resilt) && resilt is VirtualSave<T> vsave)
@@ -55,8 +46,9 @@ namespace Pokemonomania.Services
             File.WriteAllText(file, json, Encoding.UTF8);
         }
 
-        private T Load<T>(string fileName) where T : new()
+        public T Load<T>() where T : new()
         {
+            var fileName = typeof(T).ToString() + SaveFileExtension;
             if (_virtuals.TryGetValue(fileName, out object result) && result is VirtualSave<T> vsave)
             {
                 Debug.Log("Load without file system");
