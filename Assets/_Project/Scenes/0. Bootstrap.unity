@@ -305,6 +305,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a9fddb8e0744e4b5531ac3c8d4953a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentReference:
+    TypeName: 
+  autoRun: 1
+  autoInjectGameObjects: []
+  _scoreConfig: {fileID: 11400000, guid: a6d0612245d381247b6091038f6b402a, type: 2}
+  _inputConfig: {fileID: 11400000, guid: 7f3e2ff7c40a72b4287f0d73ebbdd7fa, type: 2}
   _gameResourcesData: {fileID: 11400000, guid: 7f6b325a92dc1d046bc62126b7d19122, type: 2}
 --- !u!4 &2120620180
 Transform:

@@ -5,6 +5,7 @@ using Pokemonomania.Effects;
 using Pokemonomania.Services;
 using Pokemonomania.StaticData;
 using UnityEngine;
+using VContainer;
 
 
 namespace Pokemonomania
@@ -20,6 +21,7 @@ namespace Pokemonomania
         private IDataService _dataSerivce;
         private GameSceneData _gameSceneData;
 
+        [Inject]
         public void Construct(PokemonFactory factory, GameResourcesData gameResourcesData, IDataService dataService)
         {
             _dataSerivce = dataService;

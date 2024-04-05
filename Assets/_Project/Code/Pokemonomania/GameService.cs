@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Infrastructure;
 using Pokemonomania.Data;
 using Pokemonomania.Hud;
@@ -9,21 +10,21 @@ using UnityEngine.SceneManagement;
 
 namespace Pokemonomania
 {
-    public class GameStateFlow
+    public class GameService
     {
         private readonly PokemonFactory _pokemonFactory;
         private readonly ScoreService _scoreService;
         private readonly ComboService _comboService;
-        private readonly IInputService _inputService;
+        private readonly IReadOnlyList<IInputService> _inputService;
         private readonly ICoroutineRunner _coroutineRunner;
         private readonly LooseCurtainView _looseCurtainView;
         private readonly TimerService _timerService;
         private readonly IDataService _dataService;
 
-        public GameStateFlow(PokemonFactory pokemonFactory,
+        public GameService(PokemonFactory pokemonFactory,
                              ScoreService scoreService,
                              ComboService comboService,
-                             IInputService inputService,
+                             IReadOnlyList<IInputService> inputService,
                              ICoroutineRunner coroutineRunner,
                              LooseCurtainView looseCurtainView,
                              TimerService timerService,
@@ -41,15 +42,23 @@ namespace Pokemonomania
 
         public void Enable()
         {
+            Debug.Log("Enable GameService");
             _timerService.Enabled = true;
-            _inputService.Enable(maxInputIndexes:2);
-            _inputService.Pressed += OnPressed;
+
+            foreach (var inputService in _inputService)
+            {
+                inputService.Enable(maxInputIndexes: 2);
+                inputService.Pressed += OnPressed;
+            }
         }
 
         public void Disable()
         {
-            _inputService.Pressed -= OnPressed;
-            _inputService.Disable();
+            foreach (var inputService in _inputService)
+            {
+                inputService.Pressed -= OnPressed;
+                inputService.Disable();
+            }
         }
 
         public void Tick(float delta)

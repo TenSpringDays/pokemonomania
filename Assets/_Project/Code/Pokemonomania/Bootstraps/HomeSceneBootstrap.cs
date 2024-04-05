@@ -1,17 +1,19 @@
-﻿using UnityEngine;
+﻿using Pokemonomania.Flows;
+using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 
-namespace Pokemonomania
+namespace Pokemonomania.Bootstrap
 {
-    public class HomeSceneBootstrap : MonoBehaviour
+    public class HomeSceneBootstrap : LifetimeScope
     {
-        [SerializeField] private UserStatsView _userStatsView;
-
-        private void Start()
+        [SerializeField] private UserStatsView _userStatsViewPrefab;
+        
+        protected override void Configure(IContainerBuilder builder)
         {
-            var projectBootstra = ProjectBootstrap.Find();
-            _userStatsView.Construct(projectBootstra.DataService);
-            _userStatsView.Enable();
+            builder.RegisterComponentInNewPrefab(_userStatsViewPrefab, Lifetime.Scoped);
+            builder.RegisterEntryPoint<HomeSceneFlow>();
         }
     }
 }

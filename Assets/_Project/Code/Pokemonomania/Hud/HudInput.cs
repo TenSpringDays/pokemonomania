@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
+using VContainer;
 
 
 namespace Pokemonomania.Hud
@@ -15,6 +16,7 @@ namespace Pokemonomania.Hud
 
         public event Action<int> Pressed;
 
+        [Inject]
         public void Construct(InputConfig config)
         {
             _config = config;
@@ -54,6 +56,10 @@ namespace Pokemonomania.Hud
 
             for (int i = 0; i < _clicks.Length; i++)
                 _clicks[i].InvokeRequests(oneTime: true);
+        }
+
+        public void LostFocus()
+        {
         }
 
         public void Disable()

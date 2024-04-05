@@ -21,6 +21,7 @@ namespace Pokemonomania
 
         public void Enable(int maxInputIndexes)
         {
+            Debug.Log("Keyboard intupt enable");
             var count = Mathf.Min(_config.Keys.Length, maxInputIndexes);
             _clicks = new RepeatingClick[count];
 

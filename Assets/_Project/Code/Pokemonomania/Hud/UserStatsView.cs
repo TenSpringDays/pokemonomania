@@ -3,11 +3,12 @@ using Pokemonomania.Data;
 using Pokemonomania.Services;
 using TMPro;
 using UnityEngine;
+using VContainer;
 
 
 namespace Pokemonomania
 {
-    public class UserStatsView : MonoBehaviour
+    public class UserStatsView : MonoBehaviour, IDisposable
     {
         [System.Serializable]
         public struct ViewField
@@ -30,6 +31,7 @@ namespace Pokemonomania
 
         private IDataService _dataService;
 
+        [Inject]
         public void Construct(IDataService dataService)
         {
             _dataService = dataService;
@@ -56,6 +58,11 @@ namespace Pokemonomania
                 return;
             var templte = string.IsNullOrEmpty(field.Templte) ? "{}" : field.Templte;
             field.Text.SetText(templte, data);
+        }
+
+        public void Dispose()
+        {
+            Debug.Log("disposed");
         }
     }
 }

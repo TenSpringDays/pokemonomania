@@ -10,5 +10,9 @@ namespace Pokemonomania.Hud
         void Enable(int maxInputIndexes);
 
         void Disable();
+
+        void Tick(float time);
+
+        void LostFocus();
     }
 }

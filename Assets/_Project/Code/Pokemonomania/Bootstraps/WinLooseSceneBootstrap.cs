@@ -2,25 +2,22 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using VContainer;
+using VContainer.Unity;
 
 
-namespace Pokemonomania
+namespace Pokemonomania.Bootstrap
 {
-    public class WinLooseSceneBootstrap : MonoBehaviour
+    public class WinLooseSceneBootstrap : LifetimeScope
     {
-        [SerializeField] private UserStatsView userStatsView;
-
-        private ProjectBootstrap _projectBootstrap;
         private bool _shouldContinue;
+
+        protected override void Configure(IContainerBuilder builder)
+        {
+        }
 
         private IEnumerator Start()
         {
-            _projectBootstrap = ProjectBootstrap.Find();
-            
-            userStatsView.Construct(_projectBootstrap.DataService);
-            userStatsView.Enable();
-
-            
             for (float t = 0; t < 2f; t += Time.deltaTime)
             {
                 yield return null;

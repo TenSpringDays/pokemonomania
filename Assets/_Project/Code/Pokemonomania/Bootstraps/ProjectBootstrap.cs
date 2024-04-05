@@ -1,29 +1,32 @@
-﻿using Pokemonomania.Services;
+﻿using Infrastructure;
+using Pokemonomania.Services;
 using Pokemonomania.StaticData;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using VContainer;
+using VContainer.Unity;
 
 
-namespace Pokemonomania
+namespace Pokemonomania.Bootstrap
 {
-    public class ProjectBootstrap : MonoBehaviour
+    public class ProjectBootstrap : LifetimeScope
     {
         [SerializeField] private GameResourcesData _gameResourcesData;
 
-        public GameResourcesData GameResourcesData => _gameResourcesData;
-        public IDataService DataService { get; private set; }
+        protected override void Configure(IContainerBuilder builder)
+        {
+            builder.RegisterInstance(_gameResourcesData);
+            builder.Register<IDataService>(_ => new DesktopDataService(), Lifetime.Singleton);
+            builder.Register<ICoroutineRunner>(_ => gameObject.AddComponent<CoroutineRunner>(), Lifetime.Singleton);
+            builder.Register(_ => gameObject.AddComponent<AppEventsProvider>(), Lifetime.Singleton);
+        }
 
         private void Start()
         {
-            DataService = new DesktopDataService();
-            
             DontDestroyOnLoad(this);
             SceneManager.LoadScene("1. Home", LoadSceneMode.Single);
         }
-
-        public static ProjectBootstrap Find()
-        {
-            return GameObject.FindGameObjectWithTag("ProjectBootstrap").GetComponent<ProjectBootstrap>();
-        }
     }
+
+
 }

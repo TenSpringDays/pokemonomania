@@ -1,6 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 using Pokemonomania.Services;
+using VContainer;
 
 
 namespace Pokemonomania.Hud
@@ -16,6 +17,7 @@ namespace Pokemonomania.Hud
         private ComboService _comboService;
         private ScoreService _scoreService;
 
+        [Inject]
         public void Construct(TimerService timerService, ComboService comboService, ScoreService scoreService)
         {
             _timeService = timerService;
