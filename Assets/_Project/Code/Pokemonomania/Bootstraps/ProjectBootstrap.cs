@@ -17,8 +17,8 @@ namespace Pokemonomania.Bootstrap
         {
             builder.RegisterInstance(_gameResourcesData);
             builder.Register<IDataService>(_ => new DesktopDataService(), Lifetime.Singleton);
-            builder.Register<ICoroutineRunner>(_ => gameObject.AddComponent<CoroutineRunner>(), Lifetime.Singleton);
             builder.Register(_ => gameObject.AddComponent<AppEventsProvider>(), Lifetime.Singleton);
+            builder.Register<ICoroutineRunner>(_ => gameObject.AddComponent<CoroutineRunner>(), Lifetime.Singleton);
         }
 
         private void Start()
@@ -27,6 +27,4 @@ namespace Pokemonomania.Bootstrap
             SceneManager.LoadScene("1. Home", LoadSceneMode.Single);
         }
     }
-
-
 }

@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cf78d8008d84b358e1eac06f3e69faa, type: 3}
-  m_Name: ScoreConfig
+  m_Script: {fileID: 11500000, guid: d2f9a4e111454d5db367989cfcc4cbe7, type: 3}
+  m_Name: Keyboard Input Config
   m_EditorClassIdentifier: 
-  Score:
-    ScorePerCatch: 20
+  Keys:
+  - Variants: 6100000014010000
+  - Variants: 6400000013010000
+  - Variants: 7700000011010000
+  RepeatDelay: 0.15

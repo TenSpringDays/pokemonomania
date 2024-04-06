@@ -1,13 +1,12 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
 using Utils;
 using VContainer;
 
 
 namespace Pokemonomania.Hud
 {
-    public class HudInput : MonoBehaviour, IInputService
+    public class HudInput : MonoBehaviour
     {
         [SerializeField] private Button2[] _buttons;
         private RepeatingClick[] _clicks;
@@ -43,7 +42,24 @@ namespace Pokemonomania.Hud
             _enabled = true;
         }
 
-        public void Tick(float time)
+        public void Disable()
+        {
+            Pressed = null;
+            for (int i = 0; i < _buttons.Length; i++)
+            {
+                _buttons[i].Down.RemoveAllListeners();
+                _buttons[i].Up.RemoveAllListeners();
+            }
+
+            _enabled = false;
+        }
+
+        private void Update()
+        {
+            UpdateState(Time.time);
+        }
+
+        private void UpdateState(float time)
         {
             if (!_enabled)
                 return;
@@ -58,22 +74,6 @@ namespace Pokemonomania.Hud
                 _clicks[i].InvokeRequests(oneTime: true);
         }
 
-        public void LostFocus()
-        {
-        }
 
-        public void Disable()
-        {
-            Pressed = null;
-            for (int i = 0; i < _buttons.Length; i++)
-            {
-                _buttons[i].Down.RemoveAllListeners();
-                _buttons[i].Up.RemoveAllListeners();
-            }
-
-            _enabled = false;
-        }
-        
-        
     }
 }

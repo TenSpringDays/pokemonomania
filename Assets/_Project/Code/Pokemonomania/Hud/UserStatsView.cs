@@ -62,7 +62,6 @@ namespace Pokemonomania
 
         public void Dispose()
         {
-            Debug.Log("disposed");
         }
     }
 }

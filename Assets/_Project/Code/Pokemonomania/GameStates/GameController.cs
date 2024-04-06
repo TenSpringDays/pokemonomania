@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using Infrastructure;
 using Pokemonomania.Data;
 using Pokemonomania.Hud;
@@ -10,21 +9,21 @@ using UnityEngine.SceneManagement;
 
 namespace Pokemonomania
 {
-    public class GameService
+    public class GameController
     {
         private readonly PokemonFactory _pokemonFactory;
         private readonly ScoreService _scoreService;
         private readonly ComboService _comboService;
-        private readonly IReadOnlyList<IInputService> _inputService;
+        private readonly InputController _inputСontroller;
         private readonly ICoroutineRunner _coroutineRunner;
         private readonly LooseCurtainView _looseCurtainView;
         private readonly TimerService _timerService;
         private readonly IDataService _dataService;
 
-        public GameService(PokemonFactory pokemonFactory,
+        public GameController(PokemonFactory pokemonFactory,
                              ScoreService scoreService,
                              ComboService comboService,
-                             IReadOnlyList<IInputService> inputService,
+                             InputController inputСontroller,
                              ICoroutineRunner coroutineRunner,
                              LooseCurtainView looseCurtainView,
                              TimerService timerService,
@@ -33,7 +32,7 @@ namespace Pokemonomania
             _pokemonFactory = pokemonFactory;
             _scoreService = scoreService;
             _comboService = comboService;
-            _inputService = inputService;
+            _inputСontroller = inputСontroller;
             _coroutineRunner = coroutineRunner;
             _looseCurtainView = looseCurtainView;
             _timerService = timerService;
@@ -42,27 +41,15 @@ namespace Pokemonomania
 
         public void Enable()
         {
-            Debug.Log("Enable GameService");
             _timerService.Enabled = true;
-
-            foreach (var inputService in _inputService)
-            {
-                inputService.Enable(maxInputIndexes: 2);
-                inputService.Pressed += OnPressed;
-            }
+            _inputСontroller.Enable(maxInputIndexes: 2);
+            _inputСontroller.Pressed += OnPressed;
         }
 
         public void Disable()
         {
-            foreach (var inputService in _inputService)
-            {
-                inputService.Pressed -= OnPressed;
-                inputService.Disable();
-            }
-        }
-
-        public void Tick(float delta)
-        {
+            _inputСontroller.Pressed -= OnPressed;
+            _inputСontroller.Disable();
         }
 
         private void OnPressed(int index)

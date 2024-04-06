@@ -1,16 +1,15 @@
 ﻿using System;
 using Pokemonomania.Hud;
-using UnityEngine;
 
 
 namespace Pokemonomania.Services
 {
-    public class InputService : IInputService
+    public class InputController
     {
         private readonly KeyboardInput _keyboardInput;
         private readonly HudInput _hudInput;
 
-        public InputService(KeyboardInput keyboardInput, HudInput hudInput)
+        public InputController(KeyboardInput keyboardInput, HudInput hudInput)
         {
             _keyboardInput = keyboardInput;
             _hudInput = hudInput;
@@ -19,38 +18,26 @@ namespace Pokemonomania.Services
 
         public event Action<int> Pressed;
 
+        private void OnPressed(int id)
+        {
+            Pressed?.Invoke(id);
+        }
+
         public void Enable(int maxInputIndexes)
         {
             _keyboardInput.Enable(maxInputIndexes);
             _hudInput.Enable(maxInputIndexes);
-
+            
             _keyboardInput.Pressed += OnPressed;
             _hudInput.Pressed += OnPressed;
         }
 
-        private void OnPressed(int index)
-        {
-            Pressed?.Invoke(index);
-        }
-
         public void Disable()
         {
-            _keyboardInput.Pressed -= OnPressed;
-            _hudInput.Pressed -= OnPressed;
-            
             _keyboardInput.Disable();
             _hudInput.Disable();
-        }
-
-        public void Tick(float time)
-        {
-            _keyboardInput.Tick(time);
-            _hudInput.Tick(time);
-        }
-
-        public void LostFocus()
-        {
-            _keyboardInput.LostFocus();
+            
+            Pressed -= OnPressed;
         }
     }
 }

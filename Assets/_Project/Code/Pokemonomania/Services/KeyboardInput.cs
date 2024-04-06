@@ -1,27 +1,31 @@
 ﻿using System;
-using Pokemonomania.Hud;
+using Pokemonomania.Services;
 using UnityEngine;
 using Utils;
+using VContainer.Unity;
 
 
 namespace Pokemonomania
 {
-    public class KeyboardInput : IInputService
+    public class KeyboardInput : ITickable
     {
         private readonly InputConfig _config;
+        private readonly AppEventsProvider _appEventsProvider;
         private RepeatingClick[] _clicks;
         private bool _enabled;
 
-        public KeyboardInput(InputConfig config)
+        public KeyboardInput(InputConfig config, AppEventsProvider appEventsProvider)
         {
             _config = config;
+            _appEventsProvider = appEventsProvider;
         }
 
         public event Action<int> Pressed;
 
         public void Enable(int maxInputIndexes)
         {
-            Debug.Log("Keyboard intupt enable");
+            _appEventsProvider.ApplicationFocus += OnApplicationFocus;
+            
             var count = Mathf.Min(_config.Keys.Length, maxInputIndexes);
             _clicks = new RepeatingClick[count];
 
@@ -38,11 +42,17 @@ namespace Pokemonomania
 
         public void Disable()
         {
+            _appEventsProvider.ApplicationFocus -= OnApplicationFocus;
             Pressed = null;
             _enabled = false;
         }
 
-        public void Tick(float time)
+        public void Tick()
+        {
+            UpdateState(Time.time);
+        }
+
+        private void UpdateState(float time)
         {
             if (!_enabled)
                 return;
@@ -74,10 +84,15 @@ namespace Pokemonomania
                 _clicks[i].InvokeRequests(oneTime: true);
         }
 
-        public void LostFocus()
+        private void LostFocus()
         {
             for (int i = 0; i < _clicks.Length; i++)
                 _clicks[i].Up();
+        }
+
+        private void OnApplicationFocus(bool obj)
+        {
+            LostFocus();
         }
     }
 }
