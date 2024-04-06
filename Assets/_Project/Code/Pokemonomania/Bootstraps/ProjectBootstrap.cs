@@ -16,7 +16,7 @@ namespace Pokemonomania.Bootstrap
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterInstance(_gameResourcesData);
-            builder.Register<IDataService>(_ => new DesktopDataService(), Lifetime.Singleton);
+            builder.Register<DesktopDataService>(Lifetime.Singleton).As<IDataService>();
             builder.Register(_ => gameObject.AddComponent<AppEventsProvider>(), Lifetime.Singleton);
             builder.Register<ICoroutineRunner>(_ => gameObject.AddComponent<CoroutineRunner>(), Lifetime.Singleton);
         }

@@ -1,4 +1,5 @@
 using Infrastructure;
+using Pokemonomania.Data;
 using Pokemonomania.Flows;
 using Pokemonomania.Hud;
 using Pokemonomania.Services;
@@ -20,6 +21,7 @@ namespace Pokemonomania.Bootstrap
 
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.Register(resolver => resolver.Resolve<GameSceneData>(), Lifetime.Scoped);
             builder.RegisterInstance(_scoreConfig);
             builder.RegisterInstance(_inputConfig);
             builder.RegisterInstance(_pokemonFactory);
@@ -28,9 +30,10 @@ namespace Pokemonomania.Bootstrap
             builder.Register<ComboService>(Lifetime.Scoped);
             builder.Register<ScoreService>(Lifetime.Scoped);
             builder.Register<GameController>(Lifetime.Scoped);
-            builder.Register<InputController>(Lifetime.Scoped).AsSelf();
+            builder.Register<InputController>(Lifetime.Scoped);
             builder.RegisterInstance(_hudInput).AsSelf();
             builder.RegisterInstance(_hudView);
+            
             builder.RegisterEntryPoint<KeyboardInput>(Lifetime.Scoped).AsSelf();
             builder.RegisterEntryPoint<GameSceneFlow>();
         }

@@ -8,6 +8,7 @@ namespace Pokemonomania.Services
     {
         public event Action<bool> ApplicationFocus;
         public event Action<bool> ApplicationPause;
+        public event Action ApplicationQuit;
 
         private void OnApplicationFocus(bool hasFocus)
         {
@@ -17,6 +18,11 @@ namespace Pokemonomania.Services
         private void OnApplicationPause(bool pauseStatus)
         {
             ApplicationPause?.Invoke(pauseStatus);
+        }
+
+        private void OnApplicationQuit()
+        {
+            ApplicationQuit?.Invoke();
         }
     }
 }
