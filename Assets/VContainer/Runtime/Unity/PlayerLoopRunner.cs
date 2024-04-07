@@ -58,15 +58,17 @@ namespace VContainer.Unity
 
             while (item != null)
             {
-                var continuous = false;
-                try
-                {
-                    continuous = item.MoveNext();
-                }
-                catch (Exception ex)
-                {
-                    UnityEngine.Debug.LogException(ex);
-                }
+                // var continuous = false;
+                // try
+                // {
+                //     continuous = item.MoveNext();
+                // }
+                // catch (Exception ex)
+                // {
+                //     UnityEngine.Debug.LogException(ex);
+                // }
+
+                var continuous = item.MoveNext();
 
                 if (continuous)
                 {
