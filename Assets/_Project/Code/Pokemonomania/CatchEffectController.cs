@@ -19,15 +19,14 @@ namespace Pokemonomania
         private readonly HashSet<CatchEffector> _effectors = new();
         private readonly Stack<CatchEffector> _tempBuffer = new();
         private GameResourcesConfig _gameResourcesConfig;
-        private IDataService _dataSerivce;
         private GameSceneData _gameSceneData;
 
         [Inject]
         public void Construct(
             GameResourcesConfig gameResourcesConfig,
-            IDataService dataService)
+            GameSceneData gameSceneData)
         {
-            _dataSerivce = dataService;
+            _gameSceneData = gameSceneData;
             _gameResourcesConfig = gameResourcesConfig;
         }
 
@@ -47,7 +46,6 @@ namespace Pokemonomania
         
         private void Start()
         {
-            _gameSceneData = _dataSerivce.Load<GameSceneData>();
             _sceneView.Catched += OnCatched;
         }
 
@@ -56,19 +54,19 @@ namespace Pokemonomania
             _sceneView.Catched -= OnCatched;
         }
 
-        private void OnCatched(int id, Pokemon view)
+        private void OnCatched(Pokemon view)
         {
             var viewTrans = view.transform;
             
             var newPokemon = Instantiate(
-                _gameResourcesConfig.Pokemons[id].View,
+                _gameResourcesConfig.Pokemons[view.Id].View,
                 viewTrans.position,
                 viewTrans.rotation,
                 _effectRoot
             );
 
             var effector = newPokemon.CatchEffector;
-            effector.Construct(GetAnchor(id));
+            effector.Construct(GetAnchor(view.Id));
             effector.Prepare();
             _effectors.Add(effector);
         }

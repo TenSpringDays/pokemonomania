@@ -12,69 +12,66 @@ namespace Pokemonomania
 {
     public class PokemonSceneView : MonoBehaviour
     {
+        [SerializeField] private Transform _lowerAnchor;
         [SerializeField] private PokemonFactoryConfig _config;
 
-        private float _position;
 
-        private PokemonSequence _sequence;
+        private readonly Queue<Pokemon> _pokemons = new();
         private PokemonViewFactory _factory;
-        private (int, Pokemon) _first;
+        private float _position;
 
         [Inject]
         public void Constructor(
-            PokemonSequence sequence,
             GameResourcesConfig gameResourcesConfig,
             GameSceneData gameSceneData)
         {
-            _sequence = sequence;
-            _factory = new PokemonViewFactory(gameResourcesConfig, gameSceneData);
+            _factory = new PokemonViewFactory(_lowerAnchor, gameResourcesConfig, gameSceneData);
         }
 
-        private float TopPosition => _config.ItemHeight * _config.MaxItems - _config.ItemHeight * 0.5f;
-        private float BottomPosition => _config.ItemHeight * 0.5f;
-        
-
-        public event UnityAction<int, Pokemon> Catched;
-        
+        public event UnityAction<Pokemon> Catched;
 
         private void Start()
         {
-            _position = TopPosition;
+        }
+
+        public Pokemon PushBack(int id)
+        {
+            var pokemon = _factory.Get(id);
+            _pokemons.Enqueue(pokemon);
+            return pokemon;
+        }
+
+        public Pokemon PopFirst()
+        {
+            var pokemon = _pokemons.Dequeue();
+            _factory.Release(pokemon);
+            Catched?.Invoke(pokemon);
+            _position += pokemon.transform.localScale.y;
+            return pokemon;
         }
 
         private void Update()
         {
-            _factory.ReleaseAll();
+            UpdatePosition();
+            UpdateInstancedPokemonPositions();
+        }
 
-            float offset = 0f;
+        private void UpdatePosition()
+        {
+            float delta = _config.FallSpeed * Mathf.Pow(_position, _config.PositionPower) * Time.deltaTime;
+            _position = Mathf.Max(_position - delta, 0f);
+        }
 
-            (int, Pokemon) newFirst = default; 
-
-            for (int i = 0; i < _sequence.Count; i++)
+        private void UpdateInstancedPokemonPositions()
+        {
+            float offset = _position;
+            
+            foreach (Pokemon pokemon in _pokemons)
             {
-                Pokemon pokemon = _factory.Get(_sequence[i]);
                 var trans = pokemon.transform;
                 trans.localPosition = new Vector3(0f, offset, 0f);
                 offset += trans.localScale.y;
-
-                if (i == 0)
-                    newFirst = (_sequence[i], pokemon);
             }
-            
-            if (!ReferenceEquals(_first.Item2, newFirst.Item2))
-                Catched?.Invoke(_first.Item1, _first.Item2);
-
-            _first = newFirst;
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.matrix = transform.localToWorldMatrix;
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireCube(new Vector3(0, _position, 0), Vector3.right);
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireCube(new Vector3(0, BottomPosition, 0), Vector3.right);
-            Gizmos.DrawWireCube(new Vector3(0, TopPosition, 0), Vector3.right);
         }
     }
 }

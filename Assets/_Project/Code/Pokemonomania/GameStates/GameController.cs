@@ -12,6 +12,7 @@ namespace Pokemonomania
 {
     public class GameController
     {
+        private readonly PokemonSceneView _sceneView;
         private readonly ScoreService _scoreService;
         private readonly ComboService _comboService;
         private readonly InputController _inputСontroller;
@@ -22,6 +23,7 @@ namespace Pokemonomania
         private readonly PokemonSequence _pokemonSequence;
 
         public GameController(
+            PokemonSceneView sceneView,
             ScoreService scoreService,
             ComboService comboService,
             InputController inputСontroller,
@@ -31,6 +33,7 @@ namespace Pokemonomania
             IDataService dataService,
             PokemonSequence pokemonSequence)
         {
+            _sceneView = sceneView;
             _scoreService = scoreService;
             _comboService = comboService;
             _inputСontroller = inputСontroller;
@@ -44,6 +47,10 @@ namespace Pokemonomania
         public void Enable()
         {
             _pokemonSequence.Initialize();
+            
+            for (int i = 0; i < _pokemonSequence.Count; i++)
+                _sceneView.PushBack(_pokemonSequence[i]);
+            
             _timerService.Enabled = true;
             _inputСontroller.Enable(maxInputIndexes: 2);
             _inputСontroller.Pressed += OnPressed;
@@ -66,7 +73,9 @@ namespace Pokemonomania
         private void SuccessfullyCatch()
         {
             _pokemonSequence.PopFirst();
-            _pokemonSequence.PushLast();
+            int id = _pokemonSequence.PushBack();
+            _sceneView.PushBack(id);
+            _sceneView.PopFirst();
             _scoreService.AddScore();
             _comboService.AddCombo();
         }

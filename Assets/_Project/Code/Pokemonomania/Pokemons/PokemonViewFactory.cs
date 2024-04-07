@@ -10,16 +10,18 @@ namespace Pokemonomania.Pokemons
 {
     public class PokemonViewFactory
     {
+        private Transform _root;
         private readonly GameSceneData _gameSceneData;
         private readonly GameResourcesConfig _gameResourcesConfig;
 
-        private readonly List<(int, Pokemon)> _instanced = new();
         private ObjectPool<Pokemon>[] _pools;
 
         public PokemonViewFactory(
+            Transform root,
             GameResourcesConfig gameResourcesConfig,
             GameSceneData gameSceneData)
         {
+            _root = root;
             _gameSceneData = gameSceneData;
             _gameResourcesConfig = gameResourcesConfig;
         }
@@ -28,17 +30,13 @@ namespace Pokemonomania.Pokemons
         {
             _pools ??= CreatePools();
             var pokemon = _pools[id].Get();
-            _instanced.Add((id, pokemon));
+            pokemon.Construct(id);
             return pokemon;
         }
 
-        public void ReleaseAll()
+        public void Release(Pokemon pokemon)
         {
-            for (int i = 0; i < _instanced.Count; i++)
-            {
-                (int id, Pokemon pokemon) = _instanced[i];
-                _pools[id].Release(pokemon);
-            }
+            _pools[pokemon.Id].Release(pokemon);
         }
 
         private ObjectPool<Pokemon>[] CreatePools()
@@ -58,10 +56,11 @@ namespace Pokemonomania.Pokemons
             return pools;
         }
 
-        private static ObjectPool<Pokemon> CreatePokemonObjectPool(Pokemon prefab)
+        private ObjectPool<Pokemon> CreatePokemonObjectPool(Pokemon prefab)
         {
             var root = new GameObject($"gen:PokemonFactory<{prefab.name}>").transform;
-            
+            root.SetParent(_root, false);
+
             var pool = new ObjectPool<Pokemon>(
                 createFunc: () => Object.Instantiate(prefab, root),
                 actionOnGet: x => x.gameObject.SetActive(true),

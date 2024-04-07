@@ -73,4 +73,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d086d6f638441e9099cc17b7d93fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: b405e09b10b1cfd429a072eb37da0a3f, type: 2}
+  _config:
+    _initDirectionSpread: {x: -60, y: 60}
+    _movementMinSpeed: 10
+    _movementMaxSpeed: 10
+    _rotationSpeed: 360
+    _endThreshold: 1

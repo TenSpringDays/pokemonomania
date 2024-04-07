@@ -16,10 +16,10 @@ namespace Pokemonomania.Model
         private int _scenePokemonId = -1;
         private int _remainSequence;
 
-        public PokemonSequence(IReadOnlyList<PokemonConfig> configs,
+        public PokemonSequence(GameResourcesConfig configs,
                                GameSceneData sceneData)
         {
-            _configs = configs;
+            _configs = configs.Pokemons;
             _sceneData = sceneData;
         }
         
@@ -34,7 +34,7 @@ namespace Pokemonomania.Model
             _pool = new int[8];
             
             for (int i = 0; i < _pool.Length; i++)
-                PushLast();
+                PushBack();
         }
 
 
@@ -53,7 +53,7 @@ namespace Pokemonomania.Model
             return first;
         }
 
-        public int PushLast()
+        public int PushBack()
         {
             if (_remainSequence <= 0)
                 MoveSequence();
