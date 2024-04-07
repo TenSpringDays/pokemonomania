@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25d9ffc4244f40ffbb2d1f6f2e63624d, type: 3}
+  m_Name: PokemonConfig.1
+  m_EditorClassIdentifier: 
+  _id: 1
+  _view: {fileID: 8418332896080950802, guid: f2cfd98eba5466e468eb4d4da9d356cc, type: 3}
+  _spawnStrategy: {fileID: 0}
+  _catchEffect: {fileID: 0}

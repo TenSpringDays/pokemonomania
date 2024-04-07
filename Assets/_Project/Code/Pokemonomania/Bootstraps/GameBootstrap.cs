@@ -2,6 +2,8 @@ using Infrastructure;
 using Pokemonomania.Data;
 using Pokemonomania.Flows;
 using Pokemonomania.Hud;
+using Pokemonomania.Model;
+using Pokemonomania.Pokemons;
 using Pokemonomania.Services;
 using UnityEngine;
 using VContainer;
@@ -16,16 +18,17 @@ namespace Pokemonomania.Bootstrap
         [SerializeField] private InputConfig _inputConfig;
         [SerializeField] private MainSceneHud _hudView;
         [SerializeField] private HudInput _hudInput;
-        [SerializeField] private PokemonFactory _pokemonFactory;
+        [SerializeField] private PokemonSceneView pokemonSceneView;
         [SerializeField] private LooseCurtainView _looseCurtainView;
 
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.Register(resolver => resolver.Resolve<GameSceneData>(), Lifetime.Scoped);
+            builder.Register(resolver => resolver.Resolve<IDataService>().Load<GameSceneData>(), Lifetime.Scoped);
             builder.RegisterInstance(_scoreConfig);
             builder.RegisterInstance(_inputConfig);
-            builder.RegisterInstance(_pokemonFactory);
+            builder.RegisterInstance(pokemonSceneView);
             builder.RegisterInstance(_looseCurtainView);
+            builder.Register<PokemonSequence>(Lifetime.Scoped);
             builder.Register<TimerService>(Lifetime.Scoped);
             builder.Register<ComboService>(Lifetime.Scoped);
             builder.Register<ScoreService>(Lifetime.Scoped);

@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f9a4e111454d5db367989cfcc4cbe7, type: 3}
-  m_Name: Keyboard Input Config
+  m_Script: {fileID: 11500000, guid: 25d9ffc4244f40ffbb2d1f6f2e63624d, type: 3}
+  m_Name: PokemonConfig.2
   m_EditorClassIdentifier: 
-  Keys:
-  - Variants: 6100000014010000
-  - Variants: 6400000013010000
-  - Variants: 7700000011010000
-  RepeatDelay: 0.15
+  _view: {fileID: 8418332896080950802, guid: 0517d40124ce6e648b756eb3e46ba174, type: 3}
+  _minSequence: 1
+  _maxSequence: 1
+  _scorePerCatch: 100

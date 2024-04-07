@@ -3,8 +3,8 @@
 
 namespace Pokemonomania
 {
-    [CreateAssetMenu(menuName = "StoneBreaker/CatchEffectConfig")]
-    public class CatchEffectConfig : ScriptableObject
+    [System.Serializable]
+    public class SimpleCatchEffectConfig 
     {
         [SerializeField] private Vector2 _initDirectionSpread = new (-60f, 60f);
         [SerializeField] private float _movementMinSpeed = 3f;

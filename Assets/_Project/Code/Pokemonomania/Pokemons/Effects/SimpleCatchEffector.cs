@@ -5,7 +5,7 @@ namespace Pokemonomania.Effects
 {
     public class SimpleCatchEffector : CatchEffector
     {
-        [SerializeField] private CatchEffectConfig _config;
+        [SerializeField] private SimpleCatchEffectConfig _config;
 
         private float _baseDistance;
 

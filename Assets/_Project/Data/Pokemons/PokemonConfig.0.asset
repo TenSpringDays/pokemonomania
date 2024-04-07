@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e0e8fea420f481cb0b6ebd8d01f7ba6, type: 3}
-  m_Name: Catch Effect Config
+  m_Script: {fileID: 11500000, guid: 25d9ffc4244f40ffbb2d1f6f2e63624d, type: 3}
+  m_Name: PokemonConfig.0
   m_EditorClassIdentifier: 
-  _initDirectionSpread: {x: -60, y: 60}
-  _movementMinSpeed: 3
-  _movementMaxSpeed: 10
-  _rotationSpeed: 720
-  _endThreshold: 0.3
+  _view: {fileID: 8418332896080950802, guid: 1720185247712c24493857afa55700f4, type: 3}

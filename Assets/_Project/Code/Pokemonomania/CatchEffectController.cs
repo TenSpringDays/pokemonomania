@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Pokemonomania.Data;
 using Pokemonomania.Effects;
+using Pokemonomania.Model;
 using Pokemonomania.Services;
 using Pokemonomania.StaticData;
 using UnityEngine;
@@ -12,21 +13,22 @@ namespace Pokemonomania
 {
     public class CatchEffectController : MonoBehaviour
     {
+        [SerializeField] private PokemonSceneView _sceneView;
         [SerializeField] private Transform _effectRoot;
         [SerializeField] private Transform[] _catchAnchors;
         private readonly HashSet<CatchEffector> _effectors = new();
         private readonly Stack<CatchEffector> _tempBuffer = new();
-        private GameResourcesData _gameResourcesData;
-        private PokemonFactory _factory;
+        private GameResourcesConfig _gameResourcesConfig;
         private IDataService _dataSerivce;
         private GameSceneData _gameSceneData;
 
         [Inject]
-        public void Construct(PokemonFactory factory, GameResourcesData gameResourcesData, IDataService dataService)
+        public void Construct(
+            GameResourcesConfig gameResourcesConfig,
+            IDataService dataService)
         {
             _dataSerivce = dataService;
-            _factory = factory;
-            _gameResourcesData = gameResourcesData;
+            _gameResourcesConfig = gameResourcesConfig;
         }
 
         private Transform GetAnchor(int id)
@@ -46,25 +48,27 @@ namespace Pokemonomania
         private void Start()
         {
             _gameSceneData = _dataSerivce.Load<GameSceneData>();
-            _factory.Catched += OnCatched;
+            _sceneView.Catched += OnCatched;
         }
 
         private void OnDestroy()
         {
-            _factory.Catched -= OnCatched;
+            _sceneView.Catched -= OnCatched;
         }
 
-        private void OnCatched(Pokemon obj)
+        private void OnCatched(int id, Pokemon view)
         {
+            var viewTrans = view.transform;
+            
             var newPokemon = Instantiate(
-                _gameResourcesData.Pokemons[obj.Id],
-                obj.transform.position,
-                obj.transform.rotation,
+                _gameResourcesConfig.Pokemons[id].View,
+                viewTrans.position,
+                viewTrans.rotation,
                 _effectRoot
             );
 
-            var effector = newPokemon.Effector;
-            effector.Construct(GetAnchor(obj.Id));
+            var effector = newPokemon.CatchEffector;
+            effector.Construct(GetAnchor(id));
             effector.Prepare();
             _effectors.Add(effector);
         }

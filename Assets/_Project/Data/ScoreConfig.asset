@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cf78d8008d84b358e1eac06f3e69faa, type: 3}
-  m_Name: Score Config
+  m_Name: ScoreConfig
   m_EditorClassIdentifier: 
   ScorePerCatch: 20
   DropComboDelay: 0.8

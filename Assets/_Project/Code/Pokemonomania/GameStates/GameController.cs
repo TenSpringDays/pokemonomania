@@ -2,6 +2,7 @@
 using Infrastructure;
 using Pokemonomania.Data;
 using Pokemonomania.Hud;
+using Pokemonomania.Model;
 using Pokemonomania.Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,7 +12,6 @@ namespace Pokemonomania
 {
     public class GameController
     {
-        private readonly PokemonFactory _pokemonFactory;
         private readonly ScoreService _scoreService;
         private readonly ComboService _comboService;
         private readonly InputController _inputСontroller;
@@ -19,17 +19,18 @@ namespace Pokemonomania
         private readonly LooseCurtainView _looseCurtainView;
         private readonly TimerService _timerService;
         private readonly IDataService _dataService;
+        private readonly PokemonSequence _pokemonSequence;
 
-        public GameController(PokemonFactory pokemonFactory,
-                             ScoreService scoreService,
-                             ComboService comboService,
-                             InputController inputСontroller,
-                             ICoroutineRunner coroutineRunner,
-                             LooseCurtainView looseCurtainView,
-                             TimerService timerService,
-                             IDataService dataService)
+        public GameController(
+            ScoreService scoreService,
+            ComboService comboService,
+            InputController inputСontroller,
+            ICoroutineRunner coroutineRunner,
+            LooseCurtainView looseCurtainView,
+            TimerService timerService,
+            IDataService dataService,
+            PokemonSequence pokemonSequence)
         {
-            _pokemonFactory = pokemonFactory;
             _scoreService = scoreService;
             _comboService = comboService;
             _inputСontroller = inputСontroller;
@@ -37,10 +38,12 @@ namespace Pokemonomania
             _looseCurtainView = looseCurtainView;
             _timerService = timerService;
             _dataService = dataService;
+            _pokemonSequence = pokemonSequence;
         }
 
         public void Enable()
         {
+            _pokemonSequence.Initialize();
             _timerService.Enabled = true;
             _inputСontroller.Enable(maxInputIndexes: 2);
             _inputСontroller.Pressed += OnPressed;
@@ -54,7 +57,7 @@ namespace Pokemonomania
 
         private void OnPressed(int index)
         {
-            if (_pokemonFactory.CurrentId == index)
+            if (_pokemonSequence.First == index)
                 SuccessfullyCatch();
             else
                 _coroutineRunner.StartCoroutine(UnsuccessfullyCatch());
@@ -62,7 +65,8 @@ namespace Pokemonomania
 
         private void SuccessfullyCatch()
         {
-            _pokemonFactory.Pop();
+            _pokemonSequence.PopFirst();
+            _pokemonSequence.PushLast();
             _scoreService.AddScore();
             _comboService.AddCombo();
         }

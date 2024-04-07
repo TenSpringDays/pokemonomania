@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Pokemonomania.Data;
-using Pokemonomania.Services;
 using Pokemonomania.StaticData;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -9,30 +8,37 @@ using UnityEngine.Pool;
 
 namespace Pokemonomania.Pokemons
 {
-
-    public class PokemonFactory
+    public class PokemonViewFactory
     {
         private readonly GameSceneData _gameSceneData;
-        private readonly GameResourcesData _gameResourcesData;
+        private readonly GameResourcesConfig _gameResourcesConfig;
 
+        private readonly List<(int, Pokemon)> _instanced = new();
         private ObjectPool<Pokemon>[] _pools;
 
-        public PokemonFactory(GameSceneData gameSceneData,
-            GameResourcesData gameResourcesData)
+        public PokemonViewFactory(
+            GameResourcesConfig gameResourcesConfig,
+            GameSceneData gameSceneData)
         {
             _gameSceneData = gameSceneData;
-            _gameResourcesData = gameResourcesData;
+            _gameResourcesConfig = gameResourcesConfig;
         }
 
-        public Pokemon Create(int id)
+        public Pokemon Get(int id)
         {
-            _pools ??= CreatePools(); 
-            return _pools[id].Get();
+            _pools ??= CreatePools();
+            var pokemon = _pools[id].Get();
+            _instanced.Add((id, pokemon));
+            return pokemon;
         }
 
-        public void Destroy(Pokemon pokemon)
+        public void ReleaseAll()
         {
-            _pools[pokemon.Id].Release(pokemon);
+            for (int i = 0; i < _instanced.Count; i++)
+            {
+                (int id, Pokemon pokemon) = _instanced[i];
+                _pools[id].Release(pokemon);
+            }
         }
 
         private ObjectPool<Pokemon>[] CreatePools()
@@ -44,7 +50,7 @@ namespace Pokemonomania.Pokemons
 
             foreach (var pokemonId in sceneData.Pokemons)
             {
-                var prefab = _gameResourcesData.Pokemons.First(x => x.Id == pokemonId);
+                var prefab = _gameResourcesConfig.Pokemons[pokemonId].View;
                 var pool = CreatePokemonObjectPool(prefab);
                 pools[pokemonId] = pool;
             }
